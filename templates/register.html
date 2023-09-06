@@ -1,105 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/nav_bar.css')}}">
-<title>ironman album</title>
-</head>
-<style>
-body{
-	margin: 0;
-	font-family: Arial, Helvetica, sans-serif;
-}
+{% extends "base.html" %}
 
-table{
-	background-color:plum;
-	border-radius:5px;
-	padding-bottom: 10px;
-	padding-top: 15px;
-	padding-right: 10px;
-	margin-top:20px;
-	width:70%;
-}
+{% block title %} Register | FRSTP {% endblock %}
 
-input{
-	font-size: initial;
-}
+{% block content %}
 
-span {
-	background-color:#FFC8B4;
-	box-shadow:1px 1px 3px red;
-	margin-right:8px;
-}
+<div class="card shadow mx-auto">
+    <h2 class="card-title text-center mt-3"> Create Your Own Account </h2>
 
-@media screen and (max-width: 400px){
-	table{
-		width:90%;
-	}
-}
+    <form method="POST" name="signup_form">
 
-.button {
-  border:0;
-  background-color:darkviolet;
-  color:#fff;
-  border-radius:20px;
-  cursor:pointer;
-  width:90px;
-  height:30px;
-}
+        <!--Name-->
+        <div class="form-floating form-group mt-1">
 
-.button:hover{
-  color:black;
-  background-color: lavender;
-}
-</style>
-<body>
-<form method="post">
-<ul class="computer" id="topnav">
-	<li><a href="../" class="active">首頁</a></li>
-	<li><a href="../album">相簿</a></li>
-	<li><a href="../register">註冊</a></li>
-	<li><a href="../login">登入</a></li>
-	<li style="float:right"><a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a></li>
-</ul>
-<div style="padding-top: 100px">    
-  <table align="center">
-    <tr>
-    <td colspan="2" align="right"><span>{{alert}}</span></td>
-    </tr>
-    <tr>
-      <th width="15%">account</th>
-      <td><input class="w3-input w3-border w3-round-large" type='text' name="userid" value={{id}}></td>
-    </tr>
-    <tr>
-      <th>password</th>
-      <td><input class="w3-input w3-border w3-round-large" type='password' name="userpw" value={{pw}}></td>
-    </tr>
-    <tr>
-      <th>Nick Name</th>
-      <td><input class="w3-input w3-border w3-round-large" type='text' name="username" value={{nick}}></td>
-    </tr>
-    <tr>
-      <td colspan="2" align="right"><input class="button" value="送出" type='submit' name="send"></td>
-    </tr>
-  </table>
+            <input type="text" class="form-control" id="name" name="name" placeholder="example_name" required>
+            <label for="name"> Name </label>
+        </div>
+
+        <!--Email-->
+        <div class="form-floating form-group mt-3">
+            <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" required>
+            <label for="email"> Email </label>
+        </div>
+
+        <!--Password-->
+        <div class="form-floating form-group mt-3">
+            <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
+            <label for="password"> Password </label>
+        </div>
+
+        <!--ConfirmPassword-->
+        <div class="form-floating form-group mt-3">
+            <input type="password" class="form-control" id="password_confirm" name="password_confirm" 
+                placeholder="password_confirm" required>
+            <label for="password_confirm"> Confirm Password </label>
+        </div>
+
+        <!--Phone-->
+        <div class="form-floating form-group mt-3">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="09XX-XXX-XXX" required>
+            <label for="phone"> Phone Number </label>
+        </div>
+
+        <!--Address-->
+        <div class="form-floating form-group mt-3">
+            <input type="text" class="form-control" id="address" name="address" placeholder="address" required>
+            <label for="address"> Address </label>
+        </div>
+
+
+        <!--Gender-->
+        <div class="form-floating form-group mt-3">
+            <select class="form-select" aria-label="select gender" id="gender" name="gender">
+                <option value="Male"> Male </option>
+                <option value="Female"> Female </option>
+                <option value="Other"> Other </option>
+            </select>
+            <label for="gender"> Select your gender </label>
+        </div>
+
+        <!--Birthday-->
+        <div class="form-floating form-group mt-3">
+            <input type="date" class="form-control" id="birthday" name="birthday" placeholder="address">
+            <label for="birthday"> Birthday </label>
+        </div>
+
+        <div class="text-center mt-3 mb-0">
+            <button type="submit" class="btn btn-primary signin-confirm shadow"> Sign Up </button>
+            <!--button type="reset" class="btn btn-secondary mt-3"> Clear All </button-->
+        </div>
+
+    </form>
+
+    <hr class="custom-line">
+
+    <div class="text-center">
+        <a class="btn btn-secondary shadow-lg" href="/user/login" role="button"> Already Have an Account </a>
+    </div>
+
 </div>
 
+<br><br><br><br>
 
-</form>
-<script>
-function myFunction() {
-  var x = document.getElementById("topnav");
-  if (x.className === "computer") {
-    x.className = "phone";
-  } else {
-    x.className = "computer";
-  }
-}
-</script>
-
-
-</body>
-</html>
+{% endblock %}

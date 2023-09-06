@@ -1,4 +1,4 @@
-$("form[name=signup_form").submit(function(e) {
+$("form[name=signup_form]").submit(function(e) {
 
     var $form = $(this);
     var $error = $form.find(".error");
@@ -12,6 +12,7 @@ $("form[name=signup_form").submit(function(e) {
         success: function(resp) {
             window.location.href = "/user/login";
             window.alert("註冊成功");
+            swal
         },
         
         error: function(resp) {
@@ -24,7 +25,7 @@ $("form[name=signup_form").submit(function(e) {
 
 });
 
-$("form[name=login_form").submit(function(e) {
+$("form[name=login_form]").submit(function(e) {
 
     var $form = $(this);
     var $error = $form.find(".error");

@@ -51,10 +51,17 @@ class User:
             "email": request.form.get('email')
         })
 
-        if user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
+        if not user:
+            return jsonify({ "error": "email not found"}), 401
+            
+        elif not pbkdf2_sha256.verify(request.form.get('password'), user['password']):
+            return jsonify({ "error": "password incorrect"}), 401
+
+        elif user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
             return self.start_session(user)
         
-        return jsonify({ "error": "Invalid" }), 401
+        return jsonify({ "error": "Something's wrong..." }), 401
+        #return jsonify({ "error": "Invalid" }), 401
        
     def update_user(self):
         user_json = session.get('user')  # Get user JSON from session
