@@ -23,16 +23,16 @@ from user import routes
 
 @app.route('/')
 def home():
-    return render_template('newhome.html')
+    return render_template('home.html')
 
 @app.route('/user/register')
 def user_signup():
-    return render_template('newregister.html')
+    return render_template('register.html')
 
 @app.route('/user/login')
 def user_login():
     User().signout()
-    return render_template('loginnn.html')
+    return render_template('login.html')
 
 @app.route('/dashboard/')
 @login_required

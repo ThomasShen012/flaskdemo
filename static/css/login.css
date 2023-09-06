@@ -59,10 +59,8 @@ form{
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-/*
-.form-group > label{
-    
-    font-style: italic;
-    font-weight: 400;
+.error{
+    text-align: center;
+    color: red;
+    font-weight: 600;
 }
-*/
