@@ -17,6 +17,7 @@ $("form[name=signup_form]").submit(function(e) {
         
         error: function(resp) {
             console.log(resp);
+            window.alert(resp.responseJSON.error);
             $error.text(resp.responseJSON.error).removeClass("error--hidden")
         }
 

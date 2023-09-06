@@ -19,6 +19,10 @@ class User:
         return user_json
 
     def signup(self):
+
+        if request.form.get('password') != request.form.get('password_confirm'):
+            return jsonify({ "error": "Confirm Password must match"}), 401
+
         user = {
             "name": request.form.get('name'),
             "email": request.form.get('email'),
@@ -32,6 +36,17 @@ class User:
 
         user_json = json_util.dumps(user)
 
+        if not mydb.users.find_one({ "email": user['email']}):
+            mydb.users.insert_one(user)
+            return self.start_session(user)
+
+        elif mydb.users.find_one({ "email": user['email']}): 
+            return jsonify({ "error": "email address already exist"}), 400
+
+        else:
+            return jsonify({ "error": "something's wrong..."}), 400
+
+        '''
         #checking for existing email
         if mydb.users.find_one({ "email": user['email']}):
            return jsonify({ "error": "email address already exist"}), 400
@@ -41,7 +56,8 @@ class User:
             return self.start_session(user)
         
         return jsonify({"error": "sign up error"}), 400
-    
+        '''
+
     def signout(self):
         session.clear()
         return redirect('/')
@@ -53,7 +69,7 @@ class User:
 
         if not user:
             return jsonify({ "error": "email not found"}), 401
-            
+
         elif not pbkdf2_sha256.verify(request.form.get('password'), user['password']):
             return jsonify({ "error": "password incorrect"}), 401
 
