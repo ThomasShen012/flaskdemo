@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="card-wrapper">
+        <div class="card">
+            <h1 class="center">Create an account</h1>
+            <form name="signup_form">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="field" required>
+                <label for="email">Email</label>
+                <input type="email" name="email" class="field" required>
+                <label for="password">Password</label>
+                <input type="password" name="password" class="field" required>
+                <label for="gender"> Gender </label><br>
+
+                <input type="radio" id="gender-male" name="gender" value="male">
+                <label for="male"> Male </label>
+                <input type="radio" id="gender-female" name="gender" value="female">
+                <label for="female"> Female </label>
+                <input type="radio" id="gender-other" name="gender" value="other">
+                <label for="other"> Other </label>
+
+                <label for="birthday"> Birthday </label><br>
+                <input
+                type="date"
+                id="birthday"
+                name="birthday"
+                placeholder="Enter your address"
+                class="form-control"
+                >
+
+                <p class="error error--hidden"></p>
+
+                <input type="submit" value="Sign up" class="btn">
+            </form>
+
+        </div>
+
+        <div class="card">
+            <h1 class="center">Login</h1>
+            <form name="login_form">
+                
+                <label for="email">Email</label>
+                <input type="email" name="email" class="field" required>
+                <label for="password">Password</label>
+                <input type="password" name="password" class="field" required>
+
+                <p class="error error--hidden"></p>
+
+                <input type="submit" value="Log in" class="btn">
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

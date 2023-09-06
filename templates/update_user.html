@@ -1,0 +1,42 @@
+{% extends "newbase.html" %}
+
+{% block content %}
+<form name="update_user_form" action="/user/update_user" method="POST"></form>
+<div class="card-wrapper">
+  <div class="text-section">
+    <p>這裡是您想要放在左側的文字。</p>
+    <!-- 您可以加入其他元素或文字 -->
+  </div>
+
+  <div class="card">
+    <h1 class="center">修改會員資料</h1>
+    <form name="update_user_form" method="POST">
+      <label for="name">Name</label>
+      <input type="text" name="name" class="field" value="{{ user.name }}" required>
+      <label for="email">Email</label>
+      <input type="email" name="email" class="field" value="{{ user.email }}" readonly>
+      <label for="password">Password</label>
+      <input type="password" name="password" class="field" placeholder="New Password" required>
+      <label for="password">Password Confirm</label>
+      <input type="password" name="password_confirm" class="field" placeholder="Confirm New Password" required>
+      <label for="phone">Phone</label>
+      <input type="text" name="phone" class="field" value="{{ user.phone }}" required>
+      <label for="address">Address</label>
+      <input type="text" name="address" class="field" value="{{ user.address }}" required>
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender">
+        <option value="male" {% if user.gender=='male' %}selected{% endif %}>Male</option>
+        <option value="female" {% if user.gender=='female' %}selected{% endif %}>Female</option>
+        <option value="other" {% if user.gender=='other' %}selected{% endif %}>Other</option>
+      </select>
+      <label for="birthday">Birthday</label>
+      <input type="date" id="birthday" name="birthday" value="{{ user.birthday }}">
+
+      <p class="error error--hidden"></p>
+
+      <input type="submit" value="修改" class="btn">
+    </form>
+  </div>
+</div>
+
+{% endblock %}
