@@ -49,36 +49,6 @@ def edit():
     else:
         return redirect('/login')
 
-'''
-@app.route('/')
-def home():
-    return render_template('newhome.html')
-
-@app.route('/user/register')
-def user_signup():
-    return render_template('newregister.html')
-
-@app.route('/user/login')
-def user_login():
-    User().signout()
-    return render_template('loginnn.html')
-
-@app.route('/dashboard/')
-@login_required
-def dashboard():
-    return render_template('dashboard.html')
-
-@app.route('/user/update_user')
-@login_required
-def edit():
-    user_json = session.get('user')
-    if user_json:
-        user = json.loads(user_json)
-        return render_template('update_user.html', user=user)  # Pass the user variable to the template
-    else:
-        return redirect('/login')
-'''
-
 @app.route('/user/showphoto')
 @login_required
 def showphoto():
