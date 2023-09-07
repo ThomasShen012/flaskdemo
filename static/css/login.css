@@ -64,3 +64,7 @@ form{
     color: red;
     font-weight: 600;
 }
+
+strong{
+    font-weight: 900;
+}
