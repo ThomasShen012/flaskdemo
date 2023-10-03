@@ -1,0 +1,9 @@
+<!doctype html>
+<html>
+   <body>
+        {% for member in questions %}
+            <p> name: {{ member["name"] }} </p>
+            <p> email: {{ member["email"] }} </p>
+        {% endfor %}
+   </body>
+</html>

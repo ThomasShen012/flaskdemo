@@ -59,5 +59,11 @@ def showphoto():
 def showmember():
     return render_template('showmember.html')
 
+
+@app.route('/questions')
+def question():
+    print("reaching for questions.html")
+    return render_template('questions.html', questions = questions)
+
 if __name__ == "__main__":
     app.run(debug=True)

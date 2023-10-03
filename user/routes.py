@@ -27,3 +27,10 @@ def update_user_route():
 @app.route('/showmember', methods=['GET'])
 def show_member():
     return User().show_member()
+
+
+@app.route("/questions", methods = ['GET'])
+def questions():
+    print("passed routes.py, reaching for User.question")
+    return User().question()
+    

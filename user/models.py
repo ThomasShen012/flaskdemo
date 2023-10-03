@@ -5,7 +5,6 @@ from bson import json_util
 from passlib.hash import pbkdf2_sha256
 from bson.objectid import ObjectId
 
-
 myclient = pymongo.MongoClient("mongodb+srv://team17:TqZI3KaT56q6xwYZ@team17.ufycbtt.mongodb.net/")
 mydb = myclient.test
 
@@ -118,3 +117,20 @@ class User:
         for x in mydb.users.find({}, {"_id":0, "name": 1}):
             print(x)
         return 0
+    
+    def question(self):
+        try:
+            questions = mydb.users.find({},{"name":1, "email":1})
+            print("passed models.py, reaching for db")
+            return render_template('questions.html', questions = questions)
+        except Exception as e:
+            print("error")
+            return json_util.dumps({'error' : str(e)})
+
+        '''
+        try:
+            questions = mydb.questions.find({},{"ques":1,"ans":1})
+            return render_template('questions.html', questions = questions)
+        except Exception as e:
+            return dumps({'error' : str(e)})
+        '''
