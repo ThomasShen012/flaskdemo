@@ -36,7 +36,7 @@ class User:
 
         user_json = json_util.dumps(user)
 
-        if not mydb.users.find_one({ "email": user['email']}):
+        if not mydb.users.find_one({ "email": user['email'] }):
             mydb.users.insert_one(user)
             return self.start_session(user)
 
@@ -45,18 +45,6 @@ class User:
 
         else:
             return jsonify({ "error": "something's wrong..."}), 400
-
-        '''
-        #checking for existing email
-        if mydb.users.find_one({ "email": user['email']}):
-           return jsonify({ "error": "email address already exist"}), 400
-        
-        if mydb.users.insert_one(user):
-
-            return self.start_session(user)
-        
-        return jsonify({"error": "sign up error"}), 400
-        '''
 
     def signout(self):
         session.clear()
@@ -83,7 +71,6 @@ class User:
         user_json = session.get('user')  # Get user JSON from session
         user_data = json.loads(user_json)  # Parse JSON to dictionary
         user_email = user_data['email']
-        
         
         if not user_email:
             return jsonify({"error": "Email not found in session"}), 400
@@ -127,3 +114,7 @@ class User:
         
         return jsonify({"error": "Update failed"}), 400
 
+    def show_member(self):
+        for x in mydb.users.find({}, {"_id":0, "name": 1}):
+            print(x)
+        return 0

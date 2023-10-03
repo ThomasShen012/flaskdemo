@@ -34,10 +34,10 @@ def user_login():
     User().signout()
     return render_template('login.html')
 
-@app.route('/dashboard/')
+@app.route('/memberprofile/')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('memberprofile.html')
 
 @app.route('/user/update_user')
 @login_required
@@ -53,6 +53,11 @@ def edit():
 @login_required
 def showphoto():
     return render_template('showphoto.html')
+
+@app.route('/showmember')
+@login_required
+def showmember():
+    return render_template('showmember.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

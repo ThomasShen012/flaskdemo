@@ -14,12 +14,16 @@ def signout():
 @app.route('/user/login', methods=['POST'])
 def login():
     return User().login()
-
+'''
 @app.route('/user/update_user', methods=['POST'])
 def update_user():
     return User().update_user()
-
+'''
 @app.route('/user/update_user', methods=['POST'])
 def update_user_route():
     user_obj = User()
     return user_obj.update_user()
+
+@app.route('/showmember', methods=['GET'])
+def show_member():
+    return User().show_member()
