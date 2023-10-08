@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %} Admin {% endblock %}
+
+{% block content %}
+<div class="title text-center">
+    <h1>The admin page</h1>
+    <div class="text-center">
+        <a class="btn btn-danger shadow-lg" href="/memberprofile" role="button">
+            Member mode
+        </a>
+    </div>
+</div>
+
+<!--div class="card-wrapper"-->
+    
+    <div class="card shadow mx-auto member-list fixTableHead">
+        <h2 class="card-title text-center mt-3"> Member List </h2>
+
+        <!-- print out all members -->
+        <table class="member-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for member in members %}
+                <tr>
+                    <td>{{ member["name"] }}</td>
+                    <td>{{ member["email"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+<!--/div-->
+
+<br /><br />
+
+{% endblock %}

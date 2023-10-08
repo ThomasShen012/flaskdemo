@@ -24,13 +24,14 @@ def update_user_route():
     user_obj = User()
     return user_obj.update_user()
 
-@app.route('/showmember', methods=['GET'])
-def show_member():
-    return User().show_member()
+@app.route("/admin", methods = ['GET'])
+def get_all_member():
+    #print("passed routes.py, reaching for User.get_all_member()")
+    return User().get_all_member()
 
-
-@app.route("/questions", methods = ['GET'])
-def questions():
-    print("passed routes.py, reaching for User.question")
-    return User().question()
-    
+### testing
+@app.route("/test", methods = ['GET'])
+def test_get_all_member():
+    print("passed routes.py, reaching for User.get_all_member()")
+    return User().test_get_all_member()
+### end testing

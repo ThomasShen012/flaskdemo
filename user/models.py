@@ -112,25 +112,25 @@ class User:
             return json_util.dumps(updated_user)
         
         return jsonify({"error": "Update failed"}), 400
-
-    def show_member(self):
-        for x in mydb.users.find({}, {"_id":0, "name": 1}):
-            print(x)
-        return 0
     
-    def question(self):
+    def get_all_member(self):
         try:
-            questions = mydb.users.find({},{"name":1, "email":1})
+            members = mydb.users.find({},{"name":1, "email":1})
+            #print("passed models.py, reaching for db")
+            return render_template('admin.html', members = members)
+        except Exception as e:
+            print("error in models.py")
+            return json_util.dumps({'error' : str(e)})
+
+    ### testing
+    
+    def test_get_all_member(self):
+        try:
+            members = mydb.users.find({},{"name":1, "email":1})
             print("passed models.py, reaching for db")
-            return render_template('questions.html', questions = questions)
+            return render_template('test.html', members = members)
         except Exception as e:
             print("error")
             return json_util.dumps({'error' : str(e)})
 
-        '''
-        try:
-            questions = mydb.questions.find({},{"ques":1,"ans":1})
-            return render_template('questions.html', questions = questions)
-        except Exception as e:
-            return dumps({'error' : str(e)})
-        '''
+    ### end testing

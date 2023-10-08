@@ -34,9 +34,9 @@ def user_login():
     User().signout()
     return render_template('login.html')
 
-@app.route('/memberprofile/')
+@app.route('/memberprofile')
 @login_required
-def dashboard():
+def memberprofile():
     return render_template('memberprofile.html')
 
 @app.route('/user/update_user')
@@ -54,16 +54,15 @@ def edit():
 def showphoto():
     return render_template('showphoto.html')
 
-@app.route('/showmember')
-@login_required
-def showmember():
-    return render_template('showmember.html')
+@app.route('/admin')
+def admin():
+    #print("reaching for admin.html")
+    return render_template('admin.html', members = members)
 
-
-@app.route('/questions')
-def question():
-    print("reaching for questions.html")
-    return render_template('questions.html', questions = questions)
+@app.route('/test')
+def test_admin():
+    print("reaching for test.html")
+    return render_template('test.html', members = members)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -62,7 +62,7 @@ $("form[name=update_user_form]").submit(function(e) {
         data: data,
         dataType: "json",
         success: function(resp) {
-            window.location.href = "/memberprofile/";
+            window.location.href = "/memberprofile";
             window.alert("修改成功");
         },
         error: function(resp) {
@@ -74,33 +74,6 @@ $("form[name=update_user_form]").submit(function(e) {
     e.preventDefault();
 
 });
-
-/*
-$("form[name=show_member_form]").submit(function(e) {
-
-    var $form = $(this);
-    var $error = $form.find(".error");
-    var data = $form.serialize();
-
-    $.ajax({
-        url: "/showmember",
-        type: "GET",
-        data: data,
-        dataType: "json",
-        success: function(resp) {
-            window.location.href = "/";
-            window.alert("登入成功");
-        },
-        error: function(resp) {
-            console.log(resp);
-            $error.text(resp.responseJSON.error).removeClass("error--hidden")
-        }
-
-    });
-    e.preventDefault();
-
-});
-*/
 
 $('#password, #password_confirm').on('keyup', function(){
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    table, th, td {
+        border:1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        background-color: lightgray;
+    }
+</style>
+
+<body>
+<div class="text-center member-list" style="overflow:auto; height:1000px">
+    <table class="text-center" style="height:2000px">
+        <tr>
+            <th> Name </th>
+            <th> Email </th>
+        </tr>
+        {% for member in members %}
+            <tr>
+                <td> {{ member["name"] }} </td>
+                <td> {{ member["email"] }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>
