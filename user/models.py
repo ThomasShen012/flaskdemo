@@ -127,7 +127,6 @@ class User:
     def test_get_all_member(self):
         try:
             members = mydb.users.find({},{"name":1, "email":1})
-            print("passed models.py, reaching for db")
             return render_template('test.html', members = members)
         except Exception as e:
             print("error")

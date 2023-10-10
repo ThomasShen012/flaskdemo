@@ -37,7 +37,25 @@ def user_login():
 @app.route('/memberprofile')
 @login_required
 def memberprofile():
-    return render_template('memberprofile.html')
+    print(session)
+
+    user_json = session.get('user')
+    if user_json:
+        user = json.loads(user_json)
+        user_data = json.loads(user_json)
+        user_name = user_data['name']
+
+        if user_name == 'Administrator':
+            print("user_name is admin")
+            #is_admin == True
+            return render_template('memberprofile.html', user_name=user_name)
+        else:
+            print("user_name is NOT admin")
+            #is_admin == False
+            return render_template('memberprofile.html', user_name=user_name)
+    else:
+        print("user_json is NOT a thing")
+        return redirect('/login')
 
 @app.route('/user/update_user')
 @login_required
