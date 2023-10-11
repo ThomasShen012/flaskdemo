@@ -136,17 +136,17 @@ class User:
             members = mydb.users.find({},{"name":1, "email":1})
     
             try:
-                test_member = mydb.users.find_one({"email":email}, {"_id":0, "password":0})
+                member_info = mydb.users.find_one({"email":email}, {"_id":0, "password":0})
                 #test_member_json = json_util.dumps(test_member)
-                print(test_member)
-                return render_template('admin.html', members = members, test_member = test_member)
+                print(member_info)
+                return render_template('admin.html', members = members, member_info = member_info)
 
             except Exception as e:
-                print("Error (inside) test get all member: ", str(e))
+                print("Error (inside) get member info: ", str(e))
                 return json_util.dumps({'error' : str(e)})
 
         except Exception as e:
-            print("Error (outside) test get all member: ", str(e))
+            print("Error (outside) get all member: ", str(e))
             return json_util.dumps({'error' : str(e)})
 
     ### testing    

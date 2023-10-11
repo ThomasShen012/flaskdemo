@@ -9,6 +9,9 @@
         <a class="btn btn-danger shadow-lg" href="/memberprofile" role="button">
             Member mode
         </a>
+        <a class="btn btn-danger shadow-lg" href="#" role="button">
+            Cam2
+        </a>
     </div>
 </div>
 
@@ -55,17 +58,15 @@
     <!--未來是希望可以變成彈跳小視窗就好 因為每按一次Member list就會重整-->
     <div class="card shadow mx-auto member-info">
         <h2 class="card-title text-center mt-3"> Member Information </h2>
-        {% if test_member %}
+        {% if member_info %}
 
-            <!--p>Member name: {{ test_member["name"] }}</p>
-            <p>Member email: {{ test_member["email"] }}</p-->
             <p class="member-info py-6 ms-10">
-                <strong> Member name: </strong> {{ test_member["name"] }}<br>
-                <strong> Member email: </strong> {{ test_member["email"] }}<br>
-                <strong> Member phone: </strong> {{ test_member["phone"] }} <br>
-                <strong> Member address:  </strong> {{ test_member["address"] }} <br>
-                <strong> Member gender:  </strong> {{ test_member["gender"] }} <br>
-                <strong> Member birthday:  </strong> {{ test_member["birthday"] }} <br>
+                <strong> Member name: </strong> {{ member_info["name"] }}<br>
+                <strong> Member email: </strong> {{ member_info["email"] }}<br>
+                <strong> Member phone: </strong> {{ member_info["phone"] }} <br>
+                <strong> Member address:  </strong> {{ member_info["address"] }} <br>
+                <strong> Member gender:  </strong> {{ member_info["gender"] }} <br>
+                <strong> Member birthday:  </strong> {{ member_info["birthday"] }} <br>
             </p>
 
         {% endif %}

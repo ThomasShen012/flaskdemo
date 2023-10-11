@@ -52,7 +52,7 @@ def memberprofile():
         return render_template('memberprofile.html', user_name=user_name)
     else:
         print("user_json is NOT a thing")
-        return redirect('/login')
+        return redirect('/user/login')
 
 @app.route('/user/update_user')
 @login_required
@@ -62,7 +62,7 @@ def edit():
         user = json.loads(user_json)
         return render_template('update_user.html', user=user)  # Pass the user variable to the template
     else:
-        return redirect('/login')
+        return redirect('/user/login')
 
 @app.route('/user/showphoto')
 @login_required
