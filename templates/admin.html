@@ -52,6 +52,7 @@
 
     </div>
 
+    <!--未來是希望可以變成彈跳小視窗就好 因為每按一次Member list就會重整-->
     <div class="card shadow mx-auto member-info">
         <h2 class="card-title text-center mt-3"> Member Information </h2>
         {% if test_member %}
@@ -67,11 +68,7 @@
                 <strong> Member birthday:  </strong> {{ test_member["birthday"] }} <br>
             </p>
 
-        {% else %}
-            No query
         {% endif %}
-
-        
 
     </div>
 
