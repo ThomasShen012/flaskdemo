@@ -12,33 +12,75 @@
     </div>
 </div>
 
-<!--div class="card-wrapper"-->
+<div class="card-wrapper admin-card-wrapper">
     
-    <div class="card shadow mx-auto member-list fixTableHead">
+    <!--h2 class="card-title text-center mt-3"> Member List </h2-->
+    <div class="card shadow mx-auto">
         <h2 class="card-title text-center mt-3"> Member List </h2>
 
         <!-- print out all members -->
-        <table class="member-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
+        <div class="member-list fixTableHead">
+            <table class="table table-hover member-table">
+                <thead>
+                    <tr>
+                        <th> No. </th>
+                        <th> Name </th>
+                        <th> Email </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {% for member in members %}
-                <tr>
-                    <td>{{ member["name"] }}</td>
-                    <td>{{ member["email"] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                <tbody>
+                    {% for members in members %}
+                    <tr style="border: 10px, black;">
+                        <td id="number-col"> {{ loop.index }} </td>
+                        <td id="member-name-col"> {{ members["name"] }} </td>
+                        <td id="member-email-col"> {{ members["email"] }} </td>
+                        <td>
+                            <!-- buttons -->
+                            <!--buttons type="button" class="btn btn-success btn-sm member-list-info"> Info </buttons>
+                            <buttons type="button" class="btn btn-danger btn-sm member-list-delete"> Delete </buttons-->
+                            <a href="/get_member/{{ members["email"] }}" class="btn btn-success"> Info </a>
+                            <a href="/delete_member/{{ members["email"] }}" class="btn btn-danger"> Delete </a>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
     </div>
-<!--/div-->
 
-<br /><br />
+    <div class="card shadow mx-auto member-info">
+        <h2 class="card-title text-center mt-3"> Member Information </h2>
+        {% if test_member %}
+
+            <!--p>Member name: {{ test_member["name"] }}</p>
+            <p>Member email: {{ test_member["email"] }}</p-->
+            <p class="member-info py-6 ms-10">
+                <strong> Member name: </strong> {{ test_member["name"] }}<br>
+                <strong> Member email: </strong> {{ test_member["email"] }}<br>
+                <strong> Member phone: </strong> {{ test_member["phone"] }} <br>
+                <strong> Member address:  </strong> {{ test_member["address"] }} <br>
+                <strong> Member gender:  </strong> {{ test_member["gender"] }} <br>
+                <strong> Member birthday:  </strong> {{ test_member["birthday"] }} <br>
+            </p>
+
+        {% else %}
+            No query
+        {% endif %}
+
+        
+
+    </div>
+
+    <!--div class="card shadow mx-auto event-list fixTableHead">
+        <h2 class="card-title text-center mt-3"> Event List </h2>
+
+    </div-->
+
+</div>
+<br /><br /><br />
 
 {% endblock %}

@@ -18,12 +18,12 @@
 
             <div class="text-center">
                 <a class="btn btn-success shadow-lg" href="/user/update_user" role="button"> Edit Profile </a>
-                <a class="btn btn-danger shadow-lg" href="/admin" role="button"> Admin mode </a>
                 {% if user_name == 'Administrator' %}
-                <a class="btn btn-danger shadow-lg" href="/test" role="button"> test Admin mode </a>
+                <a class="btn btn-danger shadow-lg" href="/admin" role="button"> Admin mode </a>
                 {% else %}
-                <a class="btn btn-danger shadow-lg disabled" href="/test" role="button"> test Admin mode </a>
+                <a hidden class="btn btn-danger shadow-lg" href="/admin" role="button"> Admin mode </a>
                 {% endif %}
+                <a class="btn btn-danger shadow-lg" href="/admin" role="button"> test admin </a>
             </div>
 
         </div>

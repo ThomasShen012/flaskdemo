@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template,session,redirect,Response
+from flask import Flask, jsonify, request, render_template, session, redirect, Response, url_for
 import pymongo
 import json
 from bson import json_util
@@ -119,11 +119,37 @@ class User:
             #print("passed models.py, reaching for db")
             return render_template('admin.html', members = members)
         except Exception as e:
-            print("error in models.py")
+            print("Error getting all member")
             return json_util.dumps({'error' : str(e)})
 
-    ### testing
+    def delete_member(self, email):
+        try:
+            mydb.users.delete_one({"email": email})
+            return redirect('/admin')
+        except Exception as e:
+            print("Error deleting member:", str(e))
+            return {'error': str(e)}
+
+    #個別會員的資料
+    def get_member(self, email):
+        try:
+            members = mydb.users.find({},{"name":1, "email":1})
     
+            try:
+                test_member = mydb.users.find_one({"email":email}, {"_id":0, "password":0})
+                #test_member_json = json_util.dumps(test_member)
+                print(test_member)
+                return render_template('admin.html', members = members, test_member = test_member)
+
+            except Exception as e:
+                print("Error (inside) test get all member: ", str(e))
+                return json_util.dumps({'error' : str(e)})
+
+        except Exception as e:
+            print("Error (outside) test get all member: ", str(e))
+            return json_util.dumps({'error' : str(e)})
+
+    ### testing    
     def test_get_all_member(self):
         try:
             members = mydb.users.find({},{"name":1, "email":1})
@@ -131,5 +157,4 @@ class User:
         except Exception as e:
             print("error")
             return json_util.dumps({'error' : str(e)})
-
     ### end testing

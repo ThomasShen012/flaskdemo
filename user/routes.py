@@ -28,6 +28,15 @@ def update_user_route():
 def get_all_member():
     return User().get_all_member()
 
+@app.route("/delete_member/<string:email>", methods = ['GET'])
+def delete_member(email):
+    #print("passed routes.py, reaching for User.get_all_member()")
+    return User().delete_member(email)
+
+@app.route("/get_member/<string:email>", methods = ['GET'])
+def get_member(email):
+    return User().get_member(email)
+
 ### testing
 @app.route("/test", methods = ['GET'])
 def test_get_all_member():

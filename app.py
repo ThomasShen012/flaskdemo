@@ -23,7 +23,14 @@ from user import routes
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    user_json = session.get('user')
+    if user_json:
+        user = json.loads(user_json)
+        user_data = json.loads(user_json)
+        user_name = user_data['name']
+        return render_template('home.html', user_name=user_name)
+    else:
+        return render_template('home.html')
 
 @app.route('/user/register')
 def user_signup():
@@ -37,22 +44,12 @@ def user_login():
 @app.route('/memberprofile')
 @login_required
 def memberprofile():
-    print(session)
-
     user_json = session.get('user')
     if user_json:
         user = json.loads(user_json)
         user_data = json.loads(user_json)
         user_name = user_data['name']
-
-        if user_name == 'Administrator':
-            print("user_name is admin")
-            #is_admin == True
-            return render_template('memberprofile.html', user_name=user_name)
-        else:
-            print("user_name is NOT admin")
-            #is_admin == False
-            return render_template('memberprofile.html', user_name=user_name)
+        return render_template('memberprofile.html', user_name=user_name)
     else:
         print("user_json is NOT a thing")
         return redirect('/login')
@@ -73,9 +70,10 @@ def showphoto():
     return render_template('showphoto.html')
 
 @app.route('/admin')
+@login_required
 def admin():
-    #print("reaching for admin.html")
-    return render_template('admin.html', members = members)
+    print("this is the app.py, going to admin.html")
+    return render_template('admin.html')
 
 @app.route('/test')
 def test_admin():

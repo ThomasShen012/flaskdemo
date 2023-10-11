@@ -124,14 +124,46 @@ strong{
 
 /* admin */
 .member-list{
+    /*flex: 1;*/
+    padding: 10px;
+    /*width: 1000px;*/
+}
+
+/*
+.event-list{
+    flex: 1;
+    padding: 10px;
+}
+*/
+
+/*
+.admin-card-wrapper{
+    display: flex;
+    /*align-items: start;
+}
+*/
+
+.member-list{
     height: 500px;
     overflow: auto;
 }
 
 table{
     height: 600px;
-    border: 1px, solid, black;
     border-collapse: collapse;
+    border: 1px, solid, black;
+}
+
+/*
+tr, th, td, thead, tbody{
+    border: 1px, solid, black;
+}
+*/
+
+td{
+    padding-right: 0px;
+    font-weight:700;
+    vertical-align: text-bottom;
 }
 
 .fixTableHead, thead, th{ 
@@ -141,9 +173,12 @@ table{
 }
 
 thead, th{
-    background-color: aquamarine;
-    border-color: black;
-    /*text-align: center;*/
+    background-color: #F6EF92;
+}
+
+.member-list-info, .member-list-delete{
+    font-size: small;
+    /*padding: 5px;*/
 }
 
 /* end admin */
