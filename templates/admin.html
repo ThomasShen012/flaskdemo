@@ -6,12 +6,7 @@
 <div class="title text-center">
     <h1>The admin page</h1>
     <div class="text-center">
-        <a class="btn btn-danger shadow-lg" href="/memberprofile" role="button">
-            Member mode
-        </a>
-        <a class="btn btn-danger shadow-lg" href="#" role="button">
-            Cam2
-        </a>
+        <a class="btn btn-danger shadow-lg" href="/memberprofile" role="button"> Member mode </a>
     </div>
 </div>
 
@@ -41,11 +36,8 @@
                         <td id="member-email-col"> {{ members["email"] }} </td>
                         <td>
                             <!-- buttons -->
-                            <!--buttons type="button" class="btn btn-success btn-sm member-list-info"> Info </buttons>
-                            <buttons type="button" class="btn btn-danger btn-sm member-list-delete"> Delete </buttons-->
                             <a href="/get_member/{{ members["email"] }}" class="btn btn-success"> Info </a>
                             <a href="/delete_member/{{ members["email"] }}" class="btn btn-danger"> Delete </a>
-
                         </td>
                     </tr>
                     {% endfor %}

@@ -27,8 +27,8 @@ def home():
     if user_json:
         user = json.loads(user_json)
         user_data = json.loads(user_json)
-        user_name = user_data['name']
-        return render_template('home.html', user_name=user_name)
+        user_email = user_data['email']
+        return render_template('home.html', user_email=user_email)
     else:
         return render_template('home.html')
 
@@ -48,8 +48,8 @@ def memberprofile():
     if user_json:
         user = json.loads(user_json)
         user_data = json.loads(user_json)
-        user_name = user_data['name']
-        return render_template('memberprofile.html', user_name=user_name)
+        user_email = user_data['email']
+        return render_template('memberprofile.html', user_email=user_email)
     else:
         print("user_json is NOT a thing")
         return redirect('/user/login')
