@@ -150,11 +150,54 @@ class User:
             return json_util.dumps({'error' : str(e)})
 
     ### testing    
-    def test_get_all_member(self):
+    def is_admin(self):
         try:
-            members = mydb.users.find({},{"name":1, "email":1})
-            return render_template('test.html', members = members)
+            user_json = session.get('user')
+            if user_json:
+                user_data = json.laods(user_json)
+                if user_data['email'] == 'ncumis.team17@gmail.com':
+                    return render_template('test.html')
+                else:
+                    return render_template('test.html')
+            else:
+                print("user_json is null")
+                return render_template("/test_error")
+
         except Exception as e:
             print("error")
             return json_util.dumps({'error' : str(e)})
     ### end testing
+
+# end class User
+
+class Event:
+    def delete_event(self):
+        return 0
+    
+    def add_event(self):
+
+        if request.form.get('password') != request.form.get('password_confirm'):
+            return jsonify({ "error": "Confirm Password must match"}), 401
+
+        event = {
+            "title": request.form.get('title'),
+            "time": request.form.get('time'),  #date+time?
+            "ticket_time": request.form.get('ticket_time'),
+            "ticket_price": request.form.get('ticket_price'),
+            "ticket_amount": request.form.get('ticket_amount'),
+            "description": request.form.get('description'),
+            "notices": request.form.get('notices')
+        }
+
+        event_json = json_util.dumps(event)
+        if not mydb.events.find_one({"title":event['title']}):
+            mydb.events.insert_one(event)
+            return "<p> event added! </p>"
+        else:
+            return jsonify({ "error": "title already exist"}), 400
+    
+    def modify_event(self):
+        return 0
+    
+    def get_all_event(self):
+        return 0

@@ -77,8 +77,16 @@ def admin():
 
 @app.route('/test')
 def test_admin():
-    print("reaching for test.html")
-    return render_template('test.html', members = members)
+    return render_template('test.html')
+
+@app.route('/test_error')
+def test_admin_error():
+    return render_template('test_error.html')
+
+@app.route("/add_event")
+def admin_add_event():
+    return render_template('add_event.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

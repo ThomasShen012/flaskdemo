@@ -1,6 +1,6 @@
 from flask import Flask
 from app import app
-from user.models import User
+from user.models import User, Event
 
 
 @app.route('/user/signup', methods=['POST'])
@@ -42,3 +42,7 @@ def get_member(email):
 def test_get_all_member():
     return User().test_get_all_member()
 ### end testing
+
+@app.route("/add_event", methods = ['POST'])
+def add_event():
+    return Event().add_event()
