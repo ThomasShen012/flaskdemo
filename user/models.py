@@ -176,9 +176,6 @@ class Event:
     
     def add_event(self):
 
-        if request.form.get('password') != request.form.get('password_confirm'):
-            return jsonify({ "error": "Confirm Password must match"}), 401
-
         event = {
             "title": request.form.get('title'),
             "category": request.form.get('category'),
@@ -193,7 +190,8 @@ class Event:
         event_json = json_util.dumps(event)
         if not mydb.events.find_one({"title":event['title']}):
             mydb.events.insert_one(event)
-            return "<p> event added! </p>"
+            return jsonify({ "success": "event added!"}), 200
+            #return "<p> event added! </p>"
         else:
             return jsonify({ "error": "title already exist"}), 400
     

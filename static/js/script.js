@@ -75,24 +75,48 @@ $("form[name=update_user_form]").submit(function(e) {
 
 });
 
-$('#password, #password_confirm').on('keyup', function(){
+$("#password, #password_confirm").on("keyup", function () {
+    $(".confirm-message")
+        .removeClass("success-message")
+        .removeClass("error-message");
 
-    $('.confirm-message').removeClass('success-message').removeClass('error-message');
-    
-    let password=$('#password').val();
-    let confirm_password=$('#password_confirm').val();
-    
-    if(confirm_password===""){
-        $('.confirm-message').text("Confirm Password Field cannot be empty").addClass('error-message');
+    let password = $("#password").val();
+    let confirm_password = $("#password_confirm").val();
+
+    if (confirm_password === "") {
+        $(".confirm-message")
+            .text("Confirm Password Field cannot be empty")
+            .addClass("error-message");
+    } else if (confirm_password === password) {
+        $(".confirm-message")
+            .text("Password Match!")
+            .addClass("success-message");
+    } else {
+        $(".confirm-message")
+            .text("Password Doesn't Match!")
+            .addClass("error-message");
     }
-    else if(confirm_password===password)
-    {
-        $('.confirm-message').text('Password Match!').addClass('success-message');
-    }
-    else{
-        $('.confirm-message').text("Password Doesn't Match!").addClass('error-message');
-    }
-    
+});
+
+$("form[name=add_event_form]").submit(function (e) {
+
+    var $form = $(this);
+    var $error = $form.find(".error");
+    var data = $form.serialize();
+
+    $.ajax({
+        url: "/add_event",
+        type: "POST",
+        data: data,
+        dataType: "json",
+        success: function (resp) {
+            window.location.href = "/admin";
+            window.alert("Event added");
+        },
+        error: function (resp) {
+            console.log("script: failed" + resp.responseJSON.error);
+            $error.text(resp.responseJSON.error).removeClass("error--hidden");
+        },
     });
-
-
+    e.preventDefault();
+});
