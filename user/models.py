@@ -181,7 +181,8 @@ class Event:
 
         event = {
             "title": request.form.get('title'),
-            "time": request.form.get('time'),  #date+time?
+            "category": request.form.get('category'),
+            "time": request.form.get('time'),
             "ticket_time": request.form.get('ticket_time'),
             "ticket_price": request.form.get('ticket_price'),
             "ticket_amount": request.form.get('ticket_amount'),

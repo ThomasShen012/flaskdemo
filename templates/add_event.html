@@ -16,15 +16,26 @@
             <label for="title"> Title </label>
         </div>
 
+        <!--Category-->
+        <div class="form-floating form-group mt-3">
+            <select class="form-select" aria-label="select category" id="category" name="category">
+                <option value="1"> 華語 </option>
+                <option value="2"> 韓國 </option>
+                <option value="3"> 日本 </option>
+                <option value="4"> 西洋 </option>
+            </select>
+            <label for="gender"> Select your Category </label>
+        </div>
+
         <!--Time-->
         <div class="form-floating form-group mt-3">
-            <input type="text" class="form-control" id="time" name="time" placeholder="YYYY-MM-DD HH:MM:SS" required>
+            <input type="datetime-local" class="form-control" id="time" name="time" placeholder="YYYY-MM-DD HH:MM:SS" required>
             <label for="time"> Time </label>
         </div>
 
         <!--Ticket Time-->
         <div class="form-floating form-group mt-3">
-            <input type="text" class="form-control" id="ticket_time" name="ticket_time" placeholder="YYYY-MM-DD HH:MM:SS" required>
+            <input type="datetime-local" class="form-control" id="ticket_time" name="ticket_time" placeholder="YYYY-MM-DD HH:MM:SS" required>
             <label for="ticket_time"> Ticket time </label>
         </div>
 
