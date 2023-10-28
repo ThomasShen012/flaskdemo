@@ -63,10 +63,18 @@
             <label for="notices"> Notices </label>
         </div>
 
+        <!--File Upload-->
+        <div class="form-floating form-group mt-3">
+            <input class="form-floating" type="file" id="formFileMultiple" multiple>
+            <label class="custom-file-upload" for="formFileMultiple"></label>
+            
+        </div>
+
         <p class="error error--hidden mt-3 mb-0"></p>
 
         <div class="text-center mt-3 mb-0">
-            <button type="submit" class="btn btn-primary signin-confirm shadow"> Create </button>
+            <button type="submit" class="btn btn-primary add-event-confirm shadow"> Create </button>
+            <button type="reset" class="btn btn-secondary add-event-confirm shadow"> Clear </button>
         </div>
 
     </form>
