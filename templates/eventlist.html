@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %} Eventlist {% endblock %}
+
+{% block content %}
+<div class="title text-center">
+    <div class="text-center">
+        <a class="btn btn-secondary shadow-lg" href="/admin" role="button"> back to admin </a>
+        <a class="btn btn-secondary shadow-lg" href="/add_event" role="button"> Add event </a>
+    </div>
+</div>
+
+<div class="card-wrapper admin-card-wrapper">
+    
+    <div class="card shadow mx-auto">
+        <h2 class="card-title text-center mt-3"> Event List </h2>
+
+        <!-- print out all events -->
+        <div class="event-list fixTableHead">
+            <table class="table table-hover event-table">
+                <thead>
+                    <tr>
+                        <th> No. </th>
+                        <th> Title </th>
+                        <th> Time </th>
+                        <th> Category </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for events in events %}
+                    <tr style="border: 10px, black;">
+                        <td id="number-col"> {{ loop.index }} </td>
+                        <td id="event-name-col"> {{ events["title"] }} </td>
+                        <td id="event-email-col"> {{ events["time"] }} </td>
+                        <td id="event-category-col"> {{ events["category"] }} </td>
+                        <td>
+                            <!-- buttons -->
+                            <!--a href="/get_event/{{ events["title"] }}" class="btn btn-success"> Info </a-->
+                            <a href="/delete_event/{{ events["title"] }}" class="btn btn-danger"> Delete </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!--未來是希望可以變成彈跳小視窗就好 因為每按一次Member list就會重整-->
+    <div class="card shadow mx-auto event-info">
+        <h2 class="card-title text-center mt-3"> Event Information </h2>
+        {% if event_info %}
+
+            <!--p class="event-info py-6 ms-10">
+                <strong> Member name: </strong> {{ member_info["name"] }}<br>
+                <strong> Member email: </strong> {{ member_info["email"] }}<br>
+                <strong> Member phone: </strong> {{ member_info["phone"] }} <br>
+                <strong> Member address:  </strong> {{ member_info["address"] }} <br>
+                <strong> Member gender:  </strong> {{ member_info["gender"] }} <br>
+                <strong> Member birthday:  </strong> {{ member_info["birthday"] }} <br>
+            </p-->
+
+        {% endif %}
+
+    </div>
+
+</div>
+<br /><br /><br />
+
+{% endblock %}

@@ -72,9 +72,13 @@ def showphoto():
 @app.route('/admin')
 @login_required
 def admin():
-    print("this is the app.py, going to admin.html")
     return render_template('admin.html')
 
+@app.route("/add_event")
+def admin_add_event():
+    return render_template('add_event.html')
+
+# testing, ignore this
 @app.route('/test')
 def test_admin():
     return render_template('test.html')
@@ -82,10 +86,7 @@ def test_admin():
 @app.route('/test_error')
 def test_admin_error():
     return render_template('test_error.html')
-
-@app.route("/add_event")
-def admin_add_event():
-    return render_template('add_event.html')
+# testing, ignore this
 
 
 if __name__ == "__main__":

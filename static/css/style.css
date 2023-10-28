@@ -122,28 +122,9 @@ strong{
 }
 /* end login + register + memberprofile + update_user*/
 
+
 /* admin */
-.member-list{
-    /*flex: 1;*/
-    padding: 10px;
-    /*width: 1000px;*/
-}
-
-/*
-.event-list{
-    flex: 1;
-    padding: 10px;
-}
-*/
-
-/*
-.admin-card-wrapper{
-    display: flex;
-    /*align-items: start;
-}
-*/
-
-.member-list{
+.member-list, .event-list{
     height: 500px;
     overflow: auto;
     align-items: start;
@@ -179,7 +160,7 @@ thead, th{
     background-color: #F6EF92;
 }
 
-.member-list-info, .member-list-delete{
+.member-list-info, .member-list-delete, .event-list-info, .event-list-delete{
     font-size: small;
     /*padding: 5px;*/
 }

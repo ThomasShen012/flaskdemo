@@ -110,7 +110,7 @@ $("form[name=add_event_form]").submit(function (e) {
         data: data,
         dataType: "json",
         success: function (resp) {
-            window.location.href = "/admin";
+            window.location.href = "/eventlist";
             window.alert("Event added");
         },
         error: function (resp) {

@@ -24,7 +24,7 @@ def update_user_route():
     user_obj = User()
     return user_obj.update_user()
 
-@app.route("/admin", methods = ['GET'])
+@app.route("/memberlist", methods = ['GET'])
 def get_all_member():
     return User().get_all_member()
 
@@ -43,6 +43,15 @@ def test_get_all_member():
     return User().test_get_all_member()
 ### end testing
 
+@app.route("/eventlist", methods = ['GET'])
+def get_all_event():
+    return Event().get_all_event()
+
 @app.route("/add_event", methods = ['POST'])
 def add_event():
     return Event().add_event()
+
+@app.route("/delete_event/<string:title>", methods = ['GET'])
+def delete_event(title):
+    print("routes: delete event")
+    return Event().delete_event(title)

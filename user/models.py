@@ -117,7 +117,7 @@ class User:
         try:
             members = mydb.users.find({},{"name":1, "email":1})
             #print("passed models.py, reaching for db")
-            return render_template('admin.html', members = members)
+            return render_template('memberlist.html', members = members)
         except Exception as e:
             print("Error getting all member")
             return json_util.dumps({'error' : str(e)})
@@ -125,7 +125,7 @@ class User:
     def delete_member(self, email):
         try:
             mydb.users.delete_one({"email": email})
-            return redirect('/admin')
+            return redirect('/memberlist')
         except Exception as e:
             print("Error deleting member:", str(e))
             return {'error': str(e)}
@@ -139,7 +139,7 @@ class User:
                 member_info = mydb.users.find_one({"email":email}, {"_id":0, "password":0})
                 #test_member_json = json_util.dumps(test_member)
                 print(member_info)
-                return render_template('admin.html', members = members, member_info = member_info)
+                return render_template('memberlist.html', members = members, member_info = member_info)
 
             except Exception as e:
                 print("Error (inside) get member info: ", str(e))
@@ -171,8 +171,13 @@ class User:
 # end class User
 
 class Event:
-    def delete_event(self):
-        return 0
+    def delete_event(self, title):
+        try:
+            mydb.events.delete_one({"title": title})
+            return redirect('/eventlist')
+        except Exception as e:
+            print("Error deleting event:", str(e))
+            return {'error': str(e)}
     
     def add_event(self):
 
@@ -199,4 +204,11 @@ class Event:
         return 0
     
     def get_all_event(self):
-        return 0
+        try:
+            events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
+            #events_json = json_util.dumps(events)
+            #print(type(events_json['category']))
+            return render_template('eventlist.html', events = events)
+        except Exception as e:
+            print("Error getting all event")
+            return json_util.dumps({'error' : str(e)})
