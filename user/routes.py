@@ -55,3 +55,7 @@ def add_event():
 def delete_event(title):
     print("routes: delete event")
     return Event().delete_event(title)
+
+@app.route("/get_event/<string:title>", methods = ['GET'])
+def get_event(title):
+    return Event().get_event(title)

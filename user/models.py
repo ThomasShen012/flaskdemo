@@ -206,9 +206,25 @@ class Event:
     def get_all_event(self):
         try:
             events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
-            #events_json = json_util.dumps(events)
-            #print(type(events_json['category']))
             return render_template('eventlist.html', events = events)
         except Exception as e:
             print("Error getting all event")
+            return json_util.dumps({'error' : str(e)})
+
+    #個別活動的資料
+    def get_event(self, title):
+        try:
+            events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
+    
+            try:
+                event_info = mydb.events.find_one({"title":title}, {"_id":0})
+                print(event_info)
+                return render_template('eventlist.html', events = events, event_info = event_info)
+
+            except Exception as e:
+                print("Error (inside) get event info: ", str(e))
+                return json_util.dumps({'error' : str(e)})
+
+        except Exception as e:
+            print("Error (outside) get all event: ", str(e))
             return json_util.dumps({'error' : str(e)})

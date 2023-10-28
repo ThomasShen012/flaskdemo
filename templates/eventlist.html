@@ -3,12 +3,12 @@
 {% block title %} Eventlist {% endblock %}
 
 {% block content %}
-<div class="title text-center">
-    <div class="text-center">
-        <a class="btn btn-secondary shadow-lg" href="/admin" role="button"> back to admin </a>
-        <a class="btn btn-secondary shadow-lg" href="/add_event" role="button"> Add event </a>
-    </div>
+
+<div class="text-center">
+    <a class="btn btn-secondary shadow-lg" href="/admin" role="button"> back to admin </a>
+    <a class="btn btn-secondary shadow-lg" href="/add_event" role="button"> Add event </a>
 </div>
+
 
 <div class="card-wrapper admin-card-wrapper">
     
@@ -37,7 +37,7 @@
                         <td id="event-category-col"> {{ events["category"] }} </td>
                         <td>
                             <!-- buttons -->
-                            <!--a href="/get_event/{{ events["title"] }}" class="btn btn-success"> Info </a-->
+                            <a href="/get_event/{{ events["title"] }}" class="btn btn-success"> Info </a>
                             <a href="/delete_event/{{ events["title"] }}" class="btn btn-danger"> Delete </a>
                         </td>
                     </tr>
@@ -52,18 +52,25 @@
     <div class="card shadow mx-auto event-info">
         <h2 class="card-title text-center mt-3"> Event Information </h2>
         {% if event_info %}
-
-            <!--p class="event-info py-6 ms-10">
-                <strong> Member name: </strong> {{ member_info["name"] }}<br>
-                <strong> Member email: </strong> {{ member_info["email"] }}<br>
-                <strong> Member phone: </strong> {{ member_info["phone"] }} <br>
-                <strong> Member address:  </strong> {{ member_info["address"] }} <br>
-                <strong> Member gender:  </strong> {{ member_info["gender"] }} <br>
-                <strong> Member birthday:  </strong> {{ member_info["birthday"] }} <br>
-            </p-->
-
+    
+        <p class="event-info py-6 ms-10">
+            <strong> Event title: </strong> {{ event_info["title"] }}<br>
+            <strong> Event category: </strong> {{ event_info["category"] }}<br>
+            <strong> Event time: </strong> {{ event_info["time"] }}<br>
+            <strong> Event ticket time: </strong> {{ event_info["ticket_time"] }}<br>
+            <strong> Event ticket price: </strong> {{ event_info["ticket_price"] }}<br>
+            <strong> Event ticket amount: </strong> {{ event_info["ticket_amount"] }}<br>
+            <strong> Event description: </strong> {{ event_info["description"] }}<br>
+            <strong> Event notices: </strong> {{ event_info["notices"] }}<br>
+    
+        </p>
+    
+        <div class="text-center">
+            <a class="btn btn-success shadow-lg" href="#" role="button"> Edit </a>
+        </div>
+    
         {% endif %}
-
+    
     </div>
 
 </div>
