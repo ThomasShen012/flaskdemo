@@ -4,6 +4,10 @@
 
 {% block content %}
 
+<div class="text-center">
+    <a class="btn btn-secondary shadow-lg" href="/eventlist" role="button"> back to eventlist </a>
+</div>
+
 <div class="card shadow mx-auto">
     <h2 class="card-title text-center mt-3"> Add New Event </h2>
 
@@ -61,13 +65,6 @@
         <div class="form-floating form-group mt-3">
             <input type="text" class="form-control" id="notices" name="notices" placeholder="notices" required>
             <label for="notices"> Notices </label>
-        </div>
-
-        <!--File Upload-->
-        <div class="form-floating form-group mt-3">
-            <input class="form-floating" type="file" id="formFileMultiple" multiple>
-            <label class="custom-file-upload" for="formFileMultiple"></label>
-            
         </div>
 
         <p class="error error--hidden mt-3 mb-0"></p>

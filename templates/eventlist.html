@@ -48,7 +48,7 @@
 
     </div>
 
-    <!--未來是希望可以變成彈跳小視窗就好 因為每按一次Member list就會重整-->
+    <!--未來是希望可以變成彈跳小視窗就好 因為每按一次Event list就會重整-->
     <div class="card shadow mx-auto event-info">
         <h2 class="card-title text-center mt-3"> Event Information </h2>
         {% if event_info %}
@@ -66,7 +66,7 @@
         </p>
     
         <div class="text-center">
-            <a class="btn btn-success shadow-lg" href="#" role="button"> Edit </a>
+            <a class="btn btn-success shadow-lg" href="/update_event/{{ event_info["title"] }}" role="button"> Edit </a>
         </div>
     
         {% endif %}

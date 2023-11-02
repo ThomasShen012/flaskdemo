@@ -79,6 +79,7 @@ def admin_add_event():
     return render_template('add_event.html')
 
 # testing, ignore this
+'''
 @app.route('/test')
 def test_admin():
     return render_template('test.html')
@@ -86,6 +87,7 @@ def test_admin():
 @app.route('/test_error')
 def test_admin_error():
     return render_template('test_error.html')
+'''
 # testing, ignore this
 
 

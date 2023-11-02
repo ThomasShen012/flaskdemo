@@ -63,7 +63,7 @@ $("form[name=update_user_form]").submit(function(e) {
         dataType: "json",
         success: function(resp) {
             window.location.href = "/memberprofile";
-            window.alert("修改成功");
+            window.alert("User update");
         },
         error: function(resp) {
             console.log(resp);
@@ -119,4 +119,31 @@ $("form[name=add_event_form]").submit(function (e) {
         },
     });
     e.preventDefault();
+});
+
+$("form[name=update_event_form]").submit(function(e) {
+
+    var $form = $(this);
+    var $error = $form.find(".error");
+    var data = $form.serialize();
+    /*console.log(event_title);*/
+    
+    $.ajax({
+        url: "/update_event/" + event_title, 
+        type: "POST",
+        data: data,
+        dataType: "json",
+        success: function(resp) {
+            console.log(resp);
+            window.location.href = "/eventlist";
+            window.alert("Event updated");
+        },
+        error: function(resp) {
+            console.log(resp);
+            $error.text(resp.responseJSON.error).removeClass("error--hidden")
+        }
+
+    });
+    e.preventDefault();
+
 });

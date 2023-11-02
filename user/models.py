@@ -1,4 +1,8 @@
 from flask import Flask, jsonify, request, render_template, session, redirect, Response, url_for
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+
 import pymongo
 import json
 from bson import json_util
@@ -82,6 +86,7 @@ class User:
             "gender": request.form.get('gender'),
             "birthday": request.form.get('birthday')
         }
+
         for field in ['name', 'phone', 'address', 'gender', 'birthday']:
             new_value = request.form.get(field)
             if new_value:
@@ -200,9 +205,6 @@ class Event:
         else:
             return jsonify({ "error": "title already exist"}), 400
     
-    def modify_event(self):
-        return 0
-    
     def get_all_event(self):
         try:
             events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
@@ -228,3 +230,54 @@ class Event:
         except Exception as e:
             print("Error (outside) get all event: ", str(e))
             return json_util.dumps({'error' : str(e)})
+
+    def update_event(self, title):
+        print("modals: update event")
+        event = mydb.events.find_one({"title":title}, {"_id":0})
+
+        if request.method == 'POST':
+
+            new_data = {
+            "category": request.form.get('category'),
+            "time": request.form.get('time'),
+            "ticket_time": request.form.get('ticket_time'),
+            "ticket_price": request.form.get('ticket_price'),
+            "ticket_amount": request.form.get('ticket_amount'),
+            "description": request.form.get('description'),
+            "notices": request.form.get('notices')
+            }
+
+            '''
+            for field in ['title', 'category', 'time', 'ticket_time', 'ticket_price', 'ticket_amount', 'description', 'notices']:
+                new_value = request.form.get(field)
+                if new_value:
+                    new_data[field] = new_value
+            '''
+
+            print(new_data)
+
+            if not new_data:
+                return jsonify({"error": "Can't get new data"}), 400
+            
+            # Update the event information
+            result = mydb.events.update_one(
+                {"title": title},
+                {"$set": new_data}            
+            )
+
+            return jsonify({"success": "models: event updated"}), 200
+        
+            print(result.modified_count)
+            if result.modified_count > 0:
+                # Fetch and return the updated user
+                updated_event = mydb.events.find_one({"title":title}, {"_id":0})
+
+                return get_event(self, title)  #回到eventlist和event_info
+        
+            #return jsonify({"error": "Update failed"}), 400
+
+        return render_template('update_event.html', event = event)
+
+        
+        
+        

@@ -14,7 +14,7 @@ def signout():
 @app.route('/user/login', methods=['POST'])
 def login():
     return User().login()
-'''
+
 @app.route('/user/update_user', methods=['POST'])
 def update_user():
     return User().update_user()
@@ -23,7 +23,7 @@ def update_user():
 def update_user_route():
     user_obj = User()
     return user_obj.update_user()
-
+'''
 @app.route("/memberlist", methods = ['GET'])
 def get_all_member():
     return User().get_all_member()
@@ -38,9 +38,11 @@ def get_member(email):
     return User().get_member(email)
 
 ### testing
+'''
 @app.route("/test", methods = ['GET'])
 def test_get_all_member():
     return User().test_get_all_member()
+'''
 ### end testing
 
 @app.route("/eventlist", methods = ['GET'])
@@ -59,3 +61,8 @@ def delete_event(title):
 @app.route("/get_event/<string:title>", methods = ['GET'])
 def get_event(title):
     return Event().get_event(title)
+
+@app.route('/update_event/<string:title>', methods=['POST', 'GET'])
+def update_event(title):
+    print("routes: update event")
+    return Event().update_event(title)
