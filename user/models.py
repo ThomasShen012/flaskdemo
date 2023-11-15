@@ -154,24 +154,42 @@ class User:
             print("Error (outside) get all member: ", str(e))
             return json_util.dumps({'error' : str(e)})
 
-    ### testing    
-    def is_admin(self):
-        try:
-            user_json = session.get('user')
-            if user_json:
-                user_data = json.laods(user_json)
-                if user_data['email'] == 'ncumis.team17@gmail.com':
-                    return render_template('test.html')
-                else:
-                    return render_template('test.html')
-            else:
-                print("user_json is null")
-                return render_template("/test_error")
+    def search(self):
+        if request.method == 'POST':
+            keyword = request.form['keyword']
+            # 使用正则表达式进行模糊搜索，查询多个字段
+            regex = re.compile(f'.*{keyword}.*', re.IGNORECASE)
 
-        except Exception as e:
-            print("error")
-            return json_util.dumps({'error' : str(e)})
-    ### end testing
+            # 使用 $or 运算符来构建查询条件，以同时搜索 "name" 和 "email" 字段
+            query = {
+                "$or": [
+                    {"title": regex},  # 搜索 "name" 字段
+                    {"description": regex}  # 搜索 "email" 字段
+                ]
+            }
+
+            results = list(mydb.events.find(query))  # 将结果转换为列表
+            return render_template('search.html', results=results)
+
+    def event_details(self, event_id):
+        # 使用 event_id 检索事件的详细信息，然后将详细信息传递给模板
+        event = mydb.events.find_one({"_id": ObjectId(event_id)})  # 假设您的事件具有唯一的 _id
+        return render_template('event.html', event=event)
+
+
+    def all_event():
+        all_events = list(mydb.events.find({}, {'_id': 1, 'title': 1}))
+        chinese_events = list(mydb.events.find({'category': '1'}, {'_id': 1, 'title': 1}))
+        korean_events = list(mydb.events.find({'category': '2'}, {'_id': 1, 'title': 1}))
+        japanese_events = list(mydb.events.find({'category': '3'}, {'_id': 1, 'title': 1}))
+        western_events = list(mydb.events.find({'category': '4'}, {'_id': 1, 'title': 1}))
+
+        return render_template('all_event.html',
+                               all_events=all_events,
+                               chinese_events=chinese_events,
+                               korean_events=korean_events,
+                               japanese_events=japanese_events,
+                               western_events=western_events)
 
 # end class User
 

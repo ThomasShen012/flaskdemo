@@ -66,3 +66,15 @@ def get_event(title):
 def update_event(title):
     print("routes: update event")
     return Event().update_event(title)
+
+@app.route('/search', methods=['POST'])
+def search():
+    return User().search()
+
+@app.route('/event/<event_id>')
+def event_details(event_id):
+    return User().event_details(event_id)
+
+@app.route("/all_event", methods = ['GET'])
+def all_event():
+    return User.all_event()
