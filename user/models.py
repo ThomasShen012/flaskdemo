@@ -194,6 +194,7 @@ class User:
 # end class User
 
 class Event:
+
     def delete_event(self, title):
         try:
             mydb.events.delete_one({"title": title})
