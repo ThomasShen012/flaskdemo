@@ -78,3 +78,13 @@ def event_details(event_id):
 @app.route("/all_event", methods = ['GET'])
 def all_event():
     return User.all_event()
+
+
+#embedded
+@app.route("/embedded")
+def embedded():
+    return Event.embedded()
+
+@app.route("/query")
+def query():
+    return Event.query()

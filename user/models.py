@@ -298,5 +298,31 @@ class Event:
         return render_template('update_event.html', event = event)
 
         
+    #embedded
+    def embedded():
+        if mydb.events.find({'title': "胖虎aka孩子王之世界巡迴"}):
+            mydb.events.update_one({'title': "胖虎aka孩子王之世界巡迴"}, {'$unset': { 'ticket_price': "", 'ticket_amount': "" }})
+            mydb.events.update_one({'title': "胖虎aka孩子王之世界巡迴"}, {'$set': { 'ticket': [{'name': "空地前排站票", 'price': 100, 'amount': 10}, {'name': "座位前區", 'price': 80, 'amount': 25}, {'name': "座位後區", 'price': 60, 'amount': 15} ] }})
+            return "embedded"
+        else:
+            return "cannot find 胖虎"
+
+    def query():
+        if mydb.events.find({'title': "胖虎aka孩子王之世界巡迴"}):
+            result = mydb.events.find_one({'title': "胖虎aka孩子王之世界巡迴"})
+            print(result["category"])
+            if result["category"] == '1':
+                result["category"] = "華語"
+            elif result["category"] == '2':
+                result["category"] = "韓國"
+            elif result["category"] == '3':
+                result["category"] = "日本"
+            elif result["category"] == '4':
+                result["category"] = "西洋"
+            print(result["category"])
+            
+            return render_template('query.html', result = result)
+        else:
+            return "cannot find Coldplay"
         
         
