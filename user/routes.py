@@ -81,7 +81,7 @@ def all_event():
 
 
 #embedded
-@app.route("/embedded")
+@app.route("/set")
 def embedded():
     return Event.embedded()
 

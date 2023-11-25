@@ -1,7 +1,7 @@
 <div>
     <p>{{ result }}</p>
 
-    <br><br><br><br>
+    <br><br>
 
     <p>
         <strong> title: </strong> {{ result["title"] }}<br>
@@ -13,10 +13,12 @@
         <strong> ticket : </strong> {{ result["ticket"] }} <br>
         <br>
 
+        <strong> ticket type number: {{ result.ticket | length }} </strong><br><br>
         {% for index in range(result.ticket | length) %}
-        <strong> ticket {{ loop.index }} name: </strong> {{ result["ticket"][index]["name"] }} <br>
-        <strong> ticket {{ loop.index }} price: </strong> {{ result["ticket"][index]["price"] }} <br>
-        <strong> ticket {{ loop.index }} amount: </strong> {{ result["ticket"][index]["amount"] }} <br>
+        <strong> ticket {{ loop.index }} </strong><br>
+        <strong> name: </strong> {{ result["ticket"][index]["name"] }} <br>
+        <strong> price: </strong> {{ result["ticket"][index]["price"] }} <br>
+        <strong> amount: </strong> {{ result["ticket"][index]["amount"] }} <br>
         <br>
         {% endfor %}
 

@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, request, render_template, session, redirect, Response, url_for
-
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-
+import re
+from datetime import datetime
 import pymongo
 import json
 from bson import json_util
@@ -208,10 +206,10 @@ class Event:
         event = {
             "title": request.form.get('title'),
             "category": request.form.get('category'),
-            "time": request.form.get('time'),
-            "ticket_time": request.form.get('ticket_time'),
-            "ticket_price": request.form.get('ticket_price'),
-            "ticket_amount": request.form.get('ticket_amount'),
+            "time": datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M'),
+            "ticket_time": datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M'),
+            #"ticket_price": request.form.get('ticket_price'),
+            #"ticket_amount": request.form.get('ticket_amount'),
             "description": request.form.get('description'),
             "notices": request.form.get('notices')
         }
@@ -227,6 +225,25 @@ class Event:
     def get_all_event(self):
         try:
             events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
+
+            '''
+            print(events)
+
+            for result in events:
+                print(result["category"])
+                if result["category"] == '1':
+                    result["category"] = "華語"
+                elif result["category"] == '2':
+                    result["category"] = "韓國"
+                elif result["category"] == '3':
+                    result["category"] = "日本"
+                elif result["category"] == '4':
+                    result["category"] = "西洋"
+                print(result["category"])
+
+            print(events)
+            '''
+
             return render_template('eventlist.html', events = events)
         except Exception as e:
             print("Error getting all event")
@@ -239,7 +256,19 @@ class Event:
     
             try:
                 event_info = mydb.events.find_one({"title":title}, {"_id":0})
-                print(event_info)
+                #print(event_info)
+
+                #print(event_info["category"])
+                if event_info["category"] == '1':
+                    event_info["category"] = "華語"
+                elif event_info["category"] == '2':
+                    event_info["category"] = "韓國"
+                elif event_info["category"] == '3':
+                    event_info["category"] = "日本"
+                elif event_info["category"] == '4':
+                    event_info["category"] = "西洋"
+                #print(event_info["category"])
+
                 return render_template('eventlist.html', events = events, event_info = event_info)
 
             except Exception as e:
@@ -258,10 +287,10 @@ class Event:
 
             new_data = {
             "category": request.form.get('category'),
-            "time": request.form.get('time'),
-            "ticket_time": request.form.get('ticket_time'),
-            "ticket_price": request.form.get('ticket_price'),
-            "ticket_amount": request.form.get('ticket_amount'),
+            "time": datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M'),
+            "ticket_time": datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M'),
+            #"ticket_price": request.form.get('ticket_price'),
+            #"ticket_amount": request.form.get('ticket_amount'),
             "description": request.form.get('description'),
             "notices": request.form.get('notices')
             }
@@ -300,17 +329,26 @@ class Event:
         
     #embedded
     def embedded():
-        if mydb.events.find({'title': "胖虎aka孩子王之世界巡迴"}):
+        if mydb.events.find({'title': "123"}):
             mydb.events.update_one({'title': "胖虎aka孩子王之世界巡迴"}, {'$unset': { 'ticket_price': "", 'ticket_amount': "" }})
-            mydb.events.update_one({'title': "胖虎aka孩子王之世界巡迴"}, {'$set': { 'ticket': [{'name': "空地前排站票", 'price': 100, 'amount': 10}, {'name': "座位前區", 'price': 80, 'amount': 25}, {'name': "座位後區", 'price': 60, 'amount': 15} ] }})
-            return "embedded"
+            mydb.events.update_one({'title': "123"}, {'$unset': { 'ticket_price': "", 'ticket_amount': "" }})
+            mydb.events.update_one({'title': "123"}, 
+                {'$set': { 'ticket': [
+                    {'name': "搖滾區", 'price': 3000, 'amount': 200},
+                    {'name': "A區", 'price': 2100, 'amount': 200},
+                    {'name': "B區", 'price': 100, 'amount': 100},
+                    {'name': "C區", 'price': 2100, 'amount': 60},
+                ] }})
+                
+            return "set"
         else:
-            return "cannot find 胖虎"
+            return "cannot find 123"
 
     def query():
-        if mydb.events.find({'title': "胖虎aka孩子王之世界巡迴"}):
-            result = mydb.events.find_one({'title': "胖虎aka孩子王之世界巡迴"})
-            print(result["category"])
+        if mydb.events.find({'title': "Coldplay"}):
+            result = mydb.events.find_one({'title': "Coldplay"})
+
+            #print(result["category"])
             if result["category"] == '1':
                 result["category"] = "華語"
             elif result["category"] == '2':
@@ -319,10 +357,12 @@ class Event:
                 result["category"] = "日本"
             elif result["category"] == '4':
                 result["category"] = "西洋"
-            print(result["category"])
+            #print(result["category"])
+
+            print("length of ticket list: " + str(len(result["ticket"])))
             
             return render_template('query.html', result = result)
         else:
-            return "cannot find Coldplay"
+            return "cannot find 123"
         
         

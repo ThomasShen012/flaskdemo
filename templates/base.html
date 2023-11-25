@@ -43,13 +43,21 @@
                 <div class="collapse navbar-collapse bg-faded" id="mynavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item ms-2">
-                            <a class="nav-link" href="#"> Link1 </a>
+                            <a class="nav-link" href="/all_event"> 活動資訊 </a>
                         </li>
-                        <li class="nav-item ms-2">
+                        <!--li class="nav-item ms-2">
                             <a class="nav-link" href="#"> Link2 </a>
                         </li>
                         <li class="nav-item ms-2">
                             <a class="nav-link" href="#"> Link3 </a>
+                        </li-->
+                        <li class="nav-item ms-2">
+                            <form method="POST" action="/search" class="form-inline">
+                                <div class="input-group">
+                                    <input type="text" name="keyword" placeholder="搜尋活動" class="form-control">
+                                    <button type="submit" class="btn btn-primary">搜索</button>
+                                </div>
+                            </form>
                         </li>
                     </ul>
                 </div>

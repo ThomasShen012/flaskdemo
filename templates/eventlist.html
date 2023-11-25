@@ -23,18 +23,18 @@
                         <th> No. </th>
                         <th> Title </th>
                         <th> Time </th>
-                        <th> Category </th>
+                        <!--th> Category </th-->
                         <th> Action </th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody>                    
                     {% for events in events %}
                     <tr style="border: 10px, black;">
                         <td id="number-col"> {{ loop.index }} </td>
                         <td id="event-name-col"> {{ events["title"] }} </td>
                         <td id="event-email-col"> {{ events["time"] }} </td>
-                        <td id="event-category-col"> {{ events["category"] }} </td>
+                        <!--td id="event-category-col" class="text-center"> {{ events["category"] }} </td-->
                         <td>
                             <!-- buttons -->
                             <a href="/get_event/{{ events["title"] }}" class="btn btn-success"> Info </a>
