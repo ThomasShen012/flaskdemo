@@ -8,7 +8,7 @@ body{
 }
 
 .navbar{
-    height:40px;
+    height:43px;
     background-color: #EECE00; /*primary: 600*/
     min-width:min-content
 }
@@ -17,6 +17,10 @@ body{
     color:black;
     font-size:25px;
     font-weight: 700;
+}
+
+.input-group{
+    height:auto;
 }
 
 .dropdown-menu{
@@ -37,7 +41,8 @@ body{
 }
 
 .fa-ticket, .fa-user-circle, .fa-home{
-    font-size: 33px;
+    vertical-align: middle;
+    font-size: 32px;
     color:black;
     margin-left:5px;
     margin-right:5px;
@@ -63,16 +68,13 @@ body{
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-form{
-    padding: 3px 15px 3px;
-}
-
 .form-select{
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .btn{
     padding: 10px;
+    font-weight:bold;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -101,7 +103,11 @@ form{
     color: white;
 }
 
-
+.form-group{
+    margin-top:5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
 
 .form-control{
     font-size:large;
@@ -130,25 +136,17 @@ strong{
     align-items: start;
 }
 
-table{
+.event-table{
     height: 600px;
     border-collapse: collapse;
     border: 1px, solid, black;
 }
-
-/*
-tr, th, td, thead, tbody{
-    border: 1px, solid, black;
-}
-*/
 
 td{
     padding-right: 0px;
     font-weight:700;
     vertical-align: text-bottom;
 }
-
-
 
 .fixTableHead, thead, th{ 
     position: sticky; 
@@ -163,6 +161,25 @@ thead, th{
 .member-list-info, .member-list-delete, .event-list-info, .event-list-delete{
     font-size: small;
     /*padding: 5px;*/
+}
+
+.ticket-object{
+    width:auto;
+    margin-top:5px;
+}
+
+.ticket-type-row{
+    border: 5px, solid, black;
+}
+
+.ticket-type-row:hover{
+    background-color:#EEEEEE;/*gray200*/
+}
+
+.ticket-type-num{
+    vertical-align:bottom;
+    align-items: baseline;
+    text-align: center;
 }
 
 

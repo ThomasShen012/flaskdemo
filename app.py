@@ -78,5 +78,9 @@ def admin():
 def admin_add_event():
     return render_template('add_event.html')
 
+@app.route("/dynamic")
+def dynamic():
+    return render_template('dynamic.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

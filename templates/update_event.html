@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %} Find Event {% endblock %}
+{% block title %} Update Event {% endblock %}
 
 {% block content %}
+
+<br>
+<div class="text-center">
+    <a class="btn btn-secondary shadow-lg" href="/eventlist" role="button"> 回到活動列表 </a>
+</div>
 
 <div class="card-wrapper">
     <div class="card shadow mx-auto">
@@ -18,7 +23,7 @@
             </div>
 
             <!--Category-->
-            <div class="form-group mt-1">
+            <div class="form-group mt-3">
                 <label for="category"> Category </label>
                 <select id="category" name="category">
                     <option value="1" {% if event.category=='1' %} selected {% endif %}> 華語 </option>
@@ -29,38 +34,56 @@
             </div>
 
             <!--Time-->
-            <div class="form-group mt-1">
+            <div class="form-group mt-3">
                 <label for="time"> Time </label>
                 <input type="datetime-local" id="time" name="time" value="{{ event.time }}" class="field form-control" required>
             </div>
 
             <!--Ticket Time-->
-            <div class="form-group mt-1">
+            <div class="form-group mt-3">
                 <label for="ticket_time"> Ticket time </label>
                 <input type="datetime-local" id="ticket_time" name="ticket_time"
                     value="{{ event.ticket_time }}" class="field form-control" required>
             </div>
 
-            <!--Ticket Price-->
-            <!--div class="form-group mt-1">
-                <label for="ticket_price"> Ticket price </label>
+            
+            <!--Ticket-->
+            <!--div class="form-group mt-3">
+                <label for="ticket"> Ticket </label>
                 <input type="text" id="ticket_price" name="ticket_price" value="{{ event.ticket_price }}" class="field form-control" required>
+            </div-->
+            <div class="form-group mt-3" id="ticket-type-fields">
+                {% for num in range(event.ticket | length) %}
+                <div class="row ticket-type-row mt-1">
+                    <div class="col-md-2 ticket-type-num">
+                        第 {{loop.index}} 種票
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="ticket-type-name" placeholder="票名" value="{{ event["ticket"][num]["name"] }}" required>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="ticket-type-price" placeholder="票價" value="{{ event["ticket"][num]["price"] }}" required>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" name="ticket-type-amount" placeholder="票數" value="{{ event["ticket"][num]["amount"] }}" required>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
 
-            <!--Ticket Amount>
-            <div class="form-group mt-1">
-                <label for="ticket_amount"> Ticket amount </label>
-                <input type="text" id="ticket_amount" name="ticket_amount" value="{{ event.ticket_amount }}" class="field form-control" required>
-            </div-->
+            <div class="text-center mt-2">
+                <button type="button" onclick="addTicketTypeField()" class="btn btn-success ticket-type-button"> 新增票種 </button>
+                <button type="button" onclick="removeTicketTypeField()" class="btn btn-success ticket-type-button"> 刪除票種 </button>
+            </div>
 
             <!--Description-->
-            <div class="form-group mt-1">
+            <div class="form-group mt-3">
                 <label for="description"> Description </label>
                 <input type="text" id="description" name="description" value="{{ event.description }}" class="field form-control" required>
             </div>
 
             <!--Notices-->
-            <div class="form-group mt-1">
+            <div class="form-group mt-3">
                 <label for="notices"> Notices </label>
                 <input type="text" id="notices" name="notices" value="{{ event.notices }}" class="field form-control" required>
             </div>
@@ -84,7 +107,76 @@
 <br><br>
 
 <script>
-    const event_title = "{{ event.title }}";
+
+    var counter = "{{event.ticket | length}}";
+    console.log(counter);
+
+    function addTicketTypeField() {
+        const ticketFields = document.getElementById('ticket-type-fields');
+        const newTicketTypeRow = document.createElement('div');
+        newTicketTypeRow.classList.add('row', 'ticket-type-row', "mt-1"); // 添加 row 類別
+        counter++;
+
+        const col0 = document.createElement('div');
+        col0.classList.add('col-md-2', 'ticket-type-num');
+        col0.innerHTML = "第 "+counter+" 種票";
+        
+
+        const col1 = document.createElement('div');
+        col1.classList.add('col-md-3');
+        const inputName = document.createElement('input');
+        inputName.type = 'text';
+        inputName.classList.add('form-control');
+        inputName.name = 'ticket-type-name';
+        inputName.placeholder = '票名';
+        inputName.required = true;
+        col1.appendChild(inputName);
+
+        const col2 = document.createElement('div');
+        col2.classList.add('col-md-3');
+        const inputPrice = document.createElement('input');
+        inputPrice.type = 'text';
+        inputPrice.classList.add('form-control');
+        inputPrice.name = 'ticket-type-price';
+        inputPrice.placeholder = '票價';
+        inputPrice.required = true;
+        col2.appendChild(inputPrice);
+
+        const col3 = document.createElement('div');
+        col3.classList.add('col-md-3');
+        const inputAmount = document.createElement('input');
+        inputAmount.type = 'text';
+        inputAmount.classList.add('form-control');
+        inputAmount.name = 'ticket-type-amount';
+        inputAmount.placeholder = '票數';
+        inputAmount.required = true;
+        col3.appendChild(inputAmount);
+
+        newTicketTypeRow.appendChild(col0);
+        newTicketTypeRow.appendChild(col1);
+        newTicketTypeRow.appendChild(col2);
+        newTicketTypeRow.appendChild(col3);
+        
+        console.log(counter);
+
+        ticketFields.appendChild(newTicketTypeRow);
+        
+    }
+
+    function removeTicketTypeField() {
+        const ticketFields = document.getElementById('ticket-type-fields');
+        const row = document.getElementsByClassName('ticket-type-row');
+
+        if (counter >= 1) {
+            counter--;
+            ticketFields.removeChild(row[(row.length)-1]);
+        }
+        console.log(counter);
+        
+        
+    }
+
+
 </script>
 
 {% endblock %}

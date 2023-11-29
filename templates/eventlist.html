@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<br>
 <div class="text-center">
     <a class="btn btn-secondary shadow-lg" href="/admin" role="button"> back to admin </a>
     <a class="btn btn-secondary shadow-lg" href="/add_event" role="button"> Add event </a>
@@ -28,12 +29,12 @@
                     </tr>
                 </thead>
 
-                <tbody>                    
+                <tbody>              
                     {% for events in events %}
                     <tr style="border: 10px, black;">
                         <td id="number-col"> {{ loop.index }} </td>
-                        <td id="event-name-col"> {{ events["title"] }} </td>
-                        <td id="event-email-col"> {{ events["time"] }} </td>
+                        <td id="event-title-col"> {{ events["title"] }} </td>
+                        <td id="event-time-col"> {{ events["time"] }} </td>
                         <!--td id="event-category-col" class="text-center"> {{ events["category"] }} </td-->
                         <td>
                             <!-- buttons -->
@@ -57,12 +58,34 @@
             <strong> Event title: </strong> {{ event_info["title"] }}<br>
             <strong> Event category: </strong> {{ event_info["category"] }}<br>
             <strong> Event time: </strong> {{ event_info["time"] }}<br>
-            <strong> Event ticket time: </strong> {{ event_info["ticket_time"] }}<br>
-            <strong> Event ticket price: </strong> {{ event_info["ticket_price"] }}<br>
-            <strong> Event ticket amount: </strong> {{ event_info["ticket_amount"] }}<br>
             <strong> Event description: </strong> {{ event_info["description"] }}<br>
             <strong> Event notices: </strong> {{ event_info["notices"] }}<br>
-    
+            <strong> 票券種類: </strong> {{ event_info.ticket | length }}<br>
+
+            
+            <div class="event-list fixTableHead" style="height: 200px">
+                <table class="table table-hover event-info-table" style="height: 250px">
+                    <thead>
+                        <tr>
+                            <th> 票種 </th>
+                            <th> 票名 </th>
+                            <th> 票價 </th>
+                            <th> 票數 </th>
+                        </tr>
+                    </thead>
+            
+                    <tbody>
+                        {% for num in range(event_info.ticket | length) %}
+                        <tr style="border: 10px, black;">
+                            <td> {{ loop.index }} </td>
+                            <td> {{ event_info["ticket"][num]["name"] }} </td>
+                            <td> {{ event_info["ticket"][num]["price"] }} </td>
+                            <td> {{ event_info["ticket"][num]["amount"] }} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </p>
     
         <div class="text-center">

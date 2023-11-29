@@ -37,14 +37,6 @@ def delete_member(email):
 def get_member(email):
     return User().get_member(email)
 
-### testing
-'''
-@app.route("/test", methods = ['GET'])
-def test_get_all_member():
-    return User().test_get_all_member()
-'''
-### end testing
-
 @app.route("/eventlist", methods = ['GET'])
 def get_all_event():
     return Event().get_all_event()

@@ -203,16 +203,56 @@ class Event:
     
     def add_event(self):
 
+        '''
         event = {
             "title": request.form.get('title'),
             "category": request.form.get('category'),
             "time": datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M'),
             "ticket_time": datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M'),
-            #"ticket_price": request.form.get('ticket_price'),
-            #"ticket_amount": request.form.get('ticket_amount'),
             "description": request.form.get('description'),
-            "notices": request.form.get('notices')
+            "notices": request.form.get('notices'),
+            "ticket": [{
+                'name': request.form.get('ticket-type-name'),
+                'price': int(request.form.get('ticket-type-price')),
+                'amount': int(request.form.get('ticket-type-amount'))
+            }]
         }
+        '''
+
+        title = request.form.get('title')
+        category = request.form.get('category')
+        time = datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M')
+        ticket_time = datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M')
+        description = request.form.get('description')
+        notices = request.form.get('notices')
+        
+        ticket_types = request.form.getlist('ticket-type-name')
+        ticket_prices = request.form.getlist('ticket-type-price')
+        ticket_amounts = request.form.getlist('ticket-type-amount')
+
+        print("Ticket types:", ticket_types)
+        print("Ticket prices:", ticket_prices)
+        print("Ticket amounts:", ticket_amounts)
+
+        tickets = []
+        for i in range(len(ticket_types)):
+            ticket = {
+                "name": ticket_types[i],
+                "price": ticket_prices[i],
+                "amount": ticket_amounts[i]
+            }
+            tickets.append(ticket)
+
+        event = {
+            "title": title,
+            "category": category,
+            "time": time,
+            "ticket_time": ticket_time,
+            "description": description,
+            "notices": notices,
+            "ticket": tickets
+        }
+
 
         event_json = json_util.dumps(event)
         if not mydb.events.find_one({"title":event['title']}):
@@ -228,8 +268,8 @@ class Event:
 
             '''
             print(events)
-
             for result in events:
+                print(result["title"])
                 print(result["category"])
                 if result["category"] == '1':
                     result["category"] = "華語"
@@ -240,7 +280,6 @@ class Event:
                 elif result["category"] == '4':
                     result["category"] = "西洋"
                 print(result["category"])
-
             print(events)
             '''
 
@@ -284,7 +323,7 @@ class Event:
         event = mydb.events.find_one({"title":title}, {"_id":0})
 
         if request.method == 'POST':
-
+            '''
             new_data = {
             "category": request.form.get('category'),
             "time": datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M'),
@@ -294,33 +333,52 @@ class Event:
             "description": request.form.get('description'),
             "notices": request.form.get('notices')
             }
-
             '''
-            for field in ['title', 'category', 'time', 'ticket_time', 'ticket_price', 'ticket_amount', 'description', 'notices']:
-                new_value = request.form.get(field)
-                if new_value:
-                    new_data[field] = new_value
-            '''
+            category = request.form.get('category')
+            time = datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M')
+            ticket_time = datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M')
+            description = request.form.get('description')
+            notices = request.form.get('notices')
+        
+            ticket_types = request.form.getlist('ticket-type-name')
+            ticket_prices = request.form.getlist('ticket-type-price')
+            ticket_amounts = request.form.getlist('ticket-type-amount')
 
-            print(new_data)
+            print("Ticket types:", ticket_types)
+            print("Ticket prices:", ticket_prices)
+            print("Ticket amounts:", ticket_amounts)
+
+            tickets = []
+            for i in range(len(ticket_types)):
+                ticket = {
+                    "name": ticket_types[i],
+                    "price": ticket_prices[i],
+                    "amount": ticket_amounts[i]
+                }
+                tickets.append(ticket)
+
+            new_data = {
+                "category": category,
+                "time": time,
+                "ticket_time": ticket_time,
+                "description": description,
+                "notices": notices,
+                "ticket": tickets
+            }
+
+            #print(new_data)
 
             if not new_data:
                 return jsonify({"error": "Can't get new data"}), 400
-            
+
             # Update the event information
             result = mydb.events.update_one(
                 {"title": title},
                 {"$set": new_data}            
             )
 
-            return jsonify({"success": "models: event updated"}), 200
-        
-            print(result.modified_count)
-            if result.modified_count > 0:
-                # Fetch and return the updated user
-                updated_event = mydb.events.find_one({"title":title}, {"_id":0})
-
-                return get_event(self, title)  #回到eventlist和event_info
+            return Event.get_event(self, title)  #回到eventlist和event_info
+            #return jsonify({"success": "models: event updated"}), 200
         
             #return jsonify({"error": "Update failed"}), 400
 
@@ -364,5 +422,4 @@ class Event:
             return render_template('query.html', result = result)
         else:
             return "cannot find 123"
-        
-        
+    
