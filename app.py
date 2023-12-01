@@ -1,11 +1,12 @@
-from flask import Flask, render_template, url_for, request, session, redirect
+from flask import Flask, render_template, url_for, request, session, redirect, Response, flash
 import json
 import pymongo
 from functools import wraps
-from user.models import User 
+from user.models import User
 
 app = Flask(__name__)
 app.secret_key = b'kushfuii7w4y7ry47ihwiheihf8774sdf4'
+
 
 def login_required(f):
     @wraps(f)
@@ -20,7 +21,7 @@ def login_required(f):
 #routes
 from user import routes
 
-
+'''
 @app.route('/')
 def home():
     user_json = session.get('user')
@@ -31,6 +32,7 @@ def home():
         return render_template('home.html', user_email=user_email)
     else:
         return render_template('home.html')
+'''
 
 @app.route('/user/register')
 def user_signup():

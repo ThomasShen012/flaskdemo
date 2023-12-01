@@ -125,21 +125,21 @@ class User:
             print("Error getting all member")
             return json_util.dumps({'error' : str(e)})
 
-    def delete_member(self, email):
+    def delete_member(self, member_id):
         try:
-            mydb.users.delete_one({"email": email})
+            mydb.users.delete_one({"_id": ObjectId(member_id)})
             return redirect('/memberlist')
         except Exception as e:
             print("Error deleting member:", str(e))
             return {'error': str(e)}
 
     #個別會員的資料
-    def get_member(self, email):
+    def get_member(self, member_id):
         try:
             members = mydb.users.find({},{"name":1, "email":1})
     
             try:
-                member_info = mydb.users.find_one({"email":email}, {"_id":0, "password":0})
+                member_info = mydb.users.find_one({"_id":ObjectId(member_id)}, {"password":0})
                 #test_member_json = json_util.dumps(test_member)
                 print(member_info)
                 return render_template('memberlist.html', members = members, member_info = member_info)
@@ -193,9 +193,9 @@ class User:
 
 class Event:
 
-    def delete_event(self, title):
+    def delete_event(self, event_id):
         try:
-            mydb.events.delete_one({"title": title})
+            mydb.events.delete_one({"_id": ObjectId(event_id)})
             return redirect('/eventlist')
         except Exception as e:
             print("Error deleting event:", str(e))
@@ -264,7 +264,7 @@ class Event:
     
     def get_all_event(self):
         try:
-            events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
+            events = mydb.events.find({},{"title":1, "time":1, "category":1})
 
             '''
             print(events)
@@ -289,13 +289,13 @@ class Event:
             return json_util.dumps({'error' : str(e)})
 
     #個別活動的資料
-    def get_event(self, title):
+    def get_event(self, event_id):
         try:
-            events = mydb.events.find({},{"_id":0, "title":1, "time":1, "category":1})
+            events = mydb.events.find({},{"title":1, "time":1, "category":1})
     
             try:
-                event_info = mydb.events.find_one({"title":title}, {"_id":0})
-                #print(event_info)
+                event_info = mydb.events.find_one({"_id": ObjectId(event_id)})
+                print(event_info)
 
                 #print(event_info["category"])
                 if event_info["category"] == '1':
@@ -318,22 +318,12 @@ class Event:
             print("Error (outside) get all event: ", str(e))
             return json_util.dumps({'error' : str(e)})
 
-    def update_event(self, title):
+    def update_event(self, event_id):
         print("modals: update event")
-        event = mydb.events.find_one({"title":title}, {"_id":0})
+        event = mydb.events.find_one({"_id": ObjectId(event_id)})
 
         if request.method == 'POST':
-            '''
-            new_data = {
-            "category": request.form.get('category'),
-            "time": datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M'),
-            "ticket_time": datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M'),
-            #"ticket_price": request.form.get('ticket_price'),
-            #"ticket_amount": request.form.get('ticket_amount'),
-            "description": request.form.get('description'),
-            "notices": request.form.get('notices')
-            }
-            '''
+            title = request.form.get('category')
             category = request.form.get('category')
             time = datetime.strptime(request.form.get('time'), '%Y-%m-%dT%H:%M')
             ticket_time = datetime.strptime(request.form.get('ticket_time'), '%Y-%m-%dT%H:%M')
@@ -358,6 +348,7 @@ class Event:
                 tickets.append(ticket)
 
             new_data = {
+                "title": title,
                 "category": category,
                 "time": time,
                 "ticket_time": ticket_time,
@@ -373,11 +364,11 @@ class Event:
 
             # Update the event information
             result = mydb.events.update_one(
-                {"title": title},
+                {"_id": ObjectId(event_id)},
                 {"$set": new_data}            
             )
 
-            return Event.get_event(self, title)  #回到eventlist和event_info
+            return Event.get_event(self, event_id)  #回到eventlist和event_info
             #return jsonify({"success": "models: event updated"}), 200
         
             #return jsonify({"error": "Update failed"}), 400
@@ -422,4 +413,201 @@ class Event:
             return render_template('query.html', result = result)
         else:
             return "cannot find 123"
+
+    def event_ticket(self, event_id):
+        # 使用 event_id 检索事件的详细信息，然后将详细信息传递给模板
+        event = mydb.events.find_one({"_id": ObjectId(event_id)})  # 假设您的事件具有唯一的 _id
+        return render_template('event_ticket.html', event=event)
+
+    def create_seat(self):
+        seats_data = {
+            'event_id': 'your_event_id',  # 替换为活动的 event_id
+            'title': '胖虎aka孩子王之世界巡迴',  # 活动标题
+            'tickets': [
+                {
+                    'name': '空地前排站票',  # 票种名称
+                    'seats': [
+                        {'seat_num': i, 'status': '未售出', 'member': 'none'} for i in range(1, 11)  # 座位数量为 10
+                    ]
+                },
+                {
+                    'name': '座位前區',
+                    'seats': [
+                        {'seat_num': i, 'status': '未售出', 'member': 'none'} for i in range(1, 26)  # 座位数量为 25
+                    ]
+                },
+                {
+                    'name': '座位後區',
+                    'seats': [
+                        {'seat_num': i, 'status': '已售出', 'member': 'none'} for i in range(1, 16)  # 座位数量为 15
+                    ]
+                }
+            ]
+        }
+        # 插入数据到 seat 表
+        mydb.seat.insert_one(seats_data)
+        return "create_seat"
+
+    def check_ticket_availability(self):
+        event_id = request.args.get('event_id')
+        ticket_name = request.args.get('ticket_name')
+
+        # 查询对应活动的对应票种是否有未售出的票
+        result = mydb.seat.aggregate([
+            {
+                "$match": {
+                    "tickets.name": ticket_name
+                }
+            },
+            {
+                "$unwind": "$tickets"
+            },
+            {
+                "$match": {
+                    "tickets.name": ticket_name,
+                    "tickets.seats.status": "未售出"  # 检查座位状态不是"未售出"的情况
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$_id",
+                    "count": {"$sum": 1}  # 统计符合条件的文档数量
+                }
+            },
+            {
+                "$project": {
+                    "count": 1
+                }
+            }
+        ])
+
+        remaining_tickets = sum(doc['count'] for doc in result)
+
+        # 检查是否所有票都已售罄
+        is_all_sold = remaining_tickets == 0
+
+        print(f"尚未售出的票數：{remaining_tickets}")
+        return jsonify({'available': not is_all_sold})
+
+    def checkout(self, event_id):
+        # 檢查是否有現有的訂單
+        user_json = session.get('user')
+        user_data = json.loads(user_json)
+        existing_order = mydb.orders.find_one({
+            'user_name': user_data['name'],
+            'order_status': 1,
+            'order_expired_at': {'$gt': datetime.utcnow()}  # 訂單過期時間必須大於現在的時間
+        })
+
+        if existing_order:
+            # 如果有現有訂單，檢查是否超過十分鐘
+            order_expired_at = existing_order['order_expired_at']
+            current_time = datetime.utcnow()
+            remaining = order_expired_at - current_time
+            remaining_time = max(remaining, timedelta(0))
+
+            if remaining_time > timedelta(0):
+                # 如果還在有效期內，顯示訂單資訊和剩餘時間
+                return render_template('checkout.html', order_data=existing_order, remaining_time=remaining_time,
+                                       name=user_data['name'], email=user_data['email'], phone=user_data['phone'])
+            else:
+                # 如果已超過有效期，取消訂單
+                mydb.orders.update_one({'order_id': existing_order['order_id']}, {'$set': {'order_status': 0}})
+
+                # 返回模板，顯示相應的信息
+                return render_template('all_event.html')
+
+        else:
+            # 如果沒有現有訂單，創建一個新訂單
+            order_id = ''.join(random.choices(string.digits, k=8))
+            event = mydb.events.find_one({"_id": ObjectId(event_id)})
+            area = "A區"
+            seat = "1排1號"
+            ticket_price = 5800
+            num_tickets = 1
+            total_amount = ticket_price * num_tickets
+
+            order_created_at = datetime.utcnow()
+            order_expired_at = order_created_at + timedelta(minutes=10)
+            order_status = 1
+
+            order_data = {
+                "user_name": user_data['name'],
+                "order_id": order_id,
+                "event": event,
+                "area": area,
+                "seat": seat,
+                "ticket_price": ticket_price,
+                "num_tickets": num_tickets,
+                "total_amount": total_amount,
+                "order_created_at": order_created_at,
+                "order_expired_at": order_expired_at,
+                "order_status": order_status
+            }
+
+            mydb.orders.insert_one(order_data)
+
+            current_time = datetime.utcnow()
+            remaining = order_expired_at - current_time
+            remaining_time = max(remaining, timedelta(0))
+
+            return render_template('checkout.html', order_data=order_data, remaining_time=remaining_time,
+                                   name=user_data['name'], email=user_data['email'], phone=user_data['phone'])
+
+
+    def cancel_order(self):
+        order_id = request.form.get('orderId')
+
+        result = mydb.orders.update_one(
+            {'order_id': order_id},
+            {'$set': {'order_status': 0}}
+        )
+
+        if result.modified_count > 0:
+            # 取消成功，返回成功的消息
+            return jsonify({"message": "訂單已取消"})
+        else:
+            # 找不到相應的訂單或取消失敗，返回錯誤的消息
+            return jsonify({"message": "取消訂單失敗，請檢查訂單是否存在"})
+
+    def confirm_verification(self):
+        # 在這裡添加更新訂單狀態的邏輯
+        # 你可能需要從前端的請求中獲取一些數據，例如訂單編號
+
+        # 假設你有一個叫做 order_id 的變數，代表訂單編號
+        order_id = request.form.get('order_id')
+
+        # 在這裡添加更新訂單狀態的邏輯
+        # 這是一個示例，你需要根據你的實際情況進行修改
+        result = mydb.orders.update_one(
+            {'order_id': order_id},
+            {'$set': {'order_status': 2}}  # 將訂單狀態更改為 2，表示已確認驗證
+        )
+
+        if result.modified_count > 0:
+            # 更新成功，返回成功的消息
+            data = {"message": "Success"}
+            return render_template('recognition_correct.html', data=data)
+        else:
+            # 更新失敗，返回錯誤的消息
+            return jsonify({"message": "訂單狀態更新失敗，請檢查訂單是否存在"})
+
+    def generate_order_id():
+        return ''.join(random.choices(string.digits, k=8))  # 生成8位數字的訂單編號
+
+    def update_order_status():
+        data = request.json
+        order_id = data.get('order_id')
+        new_status = data.get('new_status')
+
+        # 在這裡根據 order_id 更新資料庫中的訂單狀態為 new_status
+
+        # 假設使用 Flask-MongoEngine
+        order = mydb.orders.objects(order_id=order_id).first()
+        if order:
+            order.status = new_status
+            order.save()
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'error': 'Order not found'}), 404
     

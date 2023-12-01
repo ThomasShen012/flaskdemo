@@ -78,11 +78,6 @@
                         {% if session.logged_in %}
                         <li>
                             <p class="dropdown-header">
-                                {% if user_email == 'ncumis.team17@gmail.com' %}
-                                Admin : 
-                                {% else %}
-                                Member :
-                                {% endif %}
                                 <span  id="dropdown_user_name"></span>
                             </p>
                         </li>
@@ -133,7 +128,12 @@
             var userInfo = JSON.parse(userInfoStr);
     
             // 在HTML中顯示JSON數據
-            document.getElementById("dropdown_user_name").innerText = userInfo.name;
+            if (userInfo.email == ('ncumis.team17@gmail.com')){
+                document.getElementById("dropdown_user_name").innerText = "Admin: " + userInfo.name;
+            }
+            else{
+            document.getElementById("dropdown_user_name").innerText = "Member: " + userInfo.name;
+            }
         </script>
 
 </html>

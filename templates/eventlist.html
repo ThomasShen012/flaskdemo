@@ -38,8 +38,8 @@
                         <!--td id="event-category-col" class="text-center"> {{ events["category"] }} </td-->
                         <td>
                             <!-- buttons -->
-                            <a href="/get_event/{{ events["title"] }}" class="btn btn-success"> Info </a>
-                            <a href="/delete_event/{{ events["title"] }}" class="btn btn-danger"> Delete </a>
+                            <a href="/get_event/{{ events["_id"] }}" class="btn btn-success"> Info </a>
+                            <a href="/delete_event/{{ events["_id"] }}" class="btn btn-danger"> Delete </a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -89,7 +89,7 @@
         </p>
     
         <div class="text-center">
-            <a class="btn btn-success shadow-lg" href="/update_event/{{ event_info["title"] }}" role="button"> Edit </a>
+            <a class="btn btn-success shadow-lg" href="/update_event/{{ event_info["_id"] }}" role="button"> Edit </a>
         </div>
     
         {% endif %}

@@ -34,8 +34,8 @@
                         <td id="member-email-col"> {{ members["email"] }} </td>
                         <td>
                             <!-- buttons -->
-                            <a href="/get_member/{{ members["email"] }}" class="btn btn-success"> Info </a>
-                            <a href="/delete_member/{{ members["email"] }}" class="btn btn-danger"> Delete </a>
+                            <a href="/get_member/{{ members["_id"] }}" class="btn btn-success"> Info </a>
+                            <a href="/delete_member/{{ members["_id"] }}" class="btn btn-danger"> Delete </a>
                         </td>
                     </tr>
                     {% endfor %}
