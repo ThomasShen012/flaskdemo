@@ -175,7 +175,7 @@ class User:
         return render_template('event.html', event=event)
 
 
-    def all_event():
+    def all_event(self):
         all_events = list(mydb.events.find({}, {'_id': 1, 'title': 1}))
         chinese_events = list(mydb.events.find({'category': '1'}, {'_id': 1, 'title': 1}))
         korean_events = list(mydb.events.find({'category': '2'}, {'_id': 1, 'title': 1}))
@@ -610,4 +610,34 @@ class Event:
             return jsonify({'success': True})
         else:
             return jsonify({'success': False, 'error': 'Order not found'}), 404
+
+    def get_audience(self, event_id):
+        audience = mydb.seat.find_one({"event_id": event_id})
+        ticket_num = len(audience["tickets"])
+        #print(ticket_num)
+        audience_member = []
+        
+        for i in range(ticket_num):
+            print(i)
+            print(audience["tickets"][i]["name"])
+            seat_num = len(audience["tickets"][i]["seats"])
+            print("seat_num = " + str(seat_num))
+            for j in range(seat_num):
+                if audience["tickets"][i]["seats"][j]["status"] == '已售出':
+                    print(audience["tickets"][i]["seats"][j])
+                    audience_member.append(audience["tickets"][i]["seats"][j]["member"])
+
+            #print(audience["tickets"][i].seats[j].status)
+        
+        return render_template('audience.html', audience = audience, audience_member = audience_member)
+        '''
+        tickets = []
+            for i in range(len(ticket_types)):
+                ticket = {
+                    "name": ticket_types[i],
+                    "price": ticket_prices[i],
+                    "amount": ticket_amounts[i]
+                }
+                tickets.append(ticket)
+        '''
     

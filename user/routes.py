@@ -1,13 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 from app import app
 from user.models import User, Event
 from flask import session
+import json
 import pymongo
 from datetime import datetime
 
 myclient = pymongo.MongoClient("mongodb+srv://team17:TqZI3KaT56q6xwYZ@team17.ufycbtt.mongodb.net/")
 mydb = myclient.test
-
+current_datetime = datetime.now()
 
 @app.route('/')
 def home():
@@ -103,6 +104,10 @@ def event_details(event_id):
 @app.route("/all_event", methods = ['GET'])
 def all_event():
     return User.all_event()
+
+@app.route("/audience/<event_id>", methods = ['GET'])
+def get_audience(event_id):
+    return Event().get_audience(event_id)
 
 
 #embedded

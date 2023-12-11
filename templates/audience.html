@@ -1,0 +1,24 @@
+<a href="/get_event/{{ audience["event_id"] }}" class="btn btn-success"> back </a><br><br>
+
+{% if audience %}
+yes<br>
+
+<br>{{ audience_member }}<br><br>
+
+{% for i in range(audience.tickets | length) %}
+    {{ loop.index }}
+    {{ audience.tickets[i].name }}<br>
+    {{ audience.tickets[i].seats }}<br>
+    <br>
+    {% for j in range(audience.tickets[i].seats | length) %}
+        seat_num: {{ audience.tickets[i].seats[j].seat_num }}<br>
+        status: {{ audience.tickets[i].seats[j].status }}<br>
+        member name: {{ audience.tickets[i].seats[j].member }}<br>
+        <br>
+    {% endfor %}
+
+{% endfor %}
+
+{% else %}
+no
+{% endif %}
