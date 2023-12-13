@@ -1,24 +1,74 @@
-<a href="/get_event/{{ audience["event_id"] }}" class="btn btn-success"> back </a><br><br>
+{% extends "base.html" %}
+
+{% block title %} Audience {% endblock %}
+
+{% block content %}
+
+<br>
+<div class="text-center">
+    <a class="btn btn-secondary shadow-lg" href="/get_event/{{ audience["event_id"] }}" role="button"> back </a>
+</div>
 
 {% if audience %}
-yes<br>
 
-<br>{{ audience_member }}<br><br>
+    <!--br>{{ audience_member }}<br><br-->
+    <div class="card-wrapper row justify-content-center">
+    {% for i in range(audience.tickets | length) %}
+    <div class="card shadow col-2 ms-3 me-3" style="width:475px">
+        <h2 class="card-title text-center"> {{ audience.title }}: {{ audience.tickets[i].name }} </h2>
 
-{% for i in range(audience.tickets | length) %}
-    {{ loop.index }}
-    {{ audience.tickets[i].name }}<br>
-    {{ audience.tickets[i].seats }}<br>
-    <br>
-    {% for j in range(audience.tickets[i].seats | length) %}
-        seat_num: {{ audience.tickets[i].seats[j].seat_num }}<br>
-        status: {{ audience.tickets[i].seats[j].status }}<br>
-        member name: {{ audience.tickets[i].seats[j].member }}<br>
-        <br>
+        <div class="fixTableHead audience-list" style="height:275px">
+            <table class="table table-hover audience-table" style="height:400px">
+                
+                <thead>
+                    <tr>
+                        <th class="text-center"> 編號 </th>
+                        <th class="text-center"> 座位區號 </th>
+                        <th class="text-center"> 會員名稱 </th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    {% set counter = namespace(value=0) %}
+                    {% for j in range(audience.tickets[i].seats | length) %}
+                        {% if audience.tickets[i].seats[j].status == '已售出' %}
+                            {% set counter.value = counter.value + 1 %}
+                        <tr>
+                            <td class="text-center"> {{ loop.index }} </td>
+                            <td class="text-center"> {{ audience.tickets[i].name }}-{{ audience.tickets[i].seats[j].seat_num }}</td>
+                            <td class="text-center">{{ audience.tickets[i].seats[j].member }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+                {% if counter.value == 0 %}
+                    這區還沒有人買票喔...
+                {% endif %}
+            </table>
+        </div>
+    </div>
     {% endfor %}
 
-{% endfor %}
 
+    <!--div
+    {% for i in range(audience.tickets | length) %}
+        {{ audience.tickets[i].name }}<br 區域名稱>
+        {{ audience.tickets[i].seats }}<br>
+        <br>
+        {% for j in range(audience.tickets[i].seats | length) %}
+            {% if audience.tickets[i].seats[j].status == '已售出' %}
+                <strong> 座位: </strong> {{ audience.tickets[i].name }}-{{ audience.tickets[i].seats[j].seat_num }}<br>
+                <!--strong> 狀態: </strong> {{ audience.tickets[i].seats[j].status }}<br>
+                <strong> 會員名稱: </strong> {{ audience.tickets[i].seats[j].member }}<br>
+                <br>
+            {% endif %}
+        {% endfor %}
+
+    {% endfor %}
+    </div-->
+    </div>
 {% else %}
 no
 {% endif %}
+<br><br><br><br>
+{% endblock %}

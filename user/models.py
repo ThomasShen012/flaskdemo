@@ -295,7 +295,7 @@ class Event:
     
             try:
                 event_info = mydb.events.find_one({"_id": ObjectId(event_id)})
-                print(event_info)
+                #print(event_info)
 
                 #print(event_info["category"])
                 if event_info["category"] == '1':
@@ -613,10 +613,11 @@ class Event:
 
     def get_audience(self, event_id):
         audience = mydb.seat.find_one({"event_id": event_id})
+
+        '''
         ticket_num = len(audience["tickets"])
         #print(ticket_num)
         audience_member = []
-        
         for i in range(ticket_num):
             print(i)
             print(audience["tickets"][i]["name"])
@@ -628,8 +629,9 @@ class Event:
                     audience_member.append(audience["tickets"][i]["seats"][j]["member"])
 
             #print(audience["tickets"][i].seats[j].status)
+        '''
         
-        return render_template('audience.html', audience = audience, audience_member = audience_member)
+        return render_template('audience.html', audience = audience)
         '''
         tickets = []
             for i in range(len(ticket_types)):

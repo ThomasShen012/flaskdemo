@@ -182,5 +182,13 @@ thead, th{
     text-align: center;
 }
 
+.audience-table{
+    border-collapse: collapse;
+}
+
+.audience-list{
+    overflow: auto;
+    align-items: start;
+}
 
 /* end admin */
