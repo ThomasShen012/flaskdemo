@@ -71,7 +71,7 @@
                         data-bs-display="static"
                         aria-expanded="false"
                         data-toggle="tooltip" data-placement="left" title="User Menu">
-                        <title> User Profile </title>
+                        <title> 會員資訊 </title>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -83,21 +83,21 @@
                         </li>
 
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/memberprofile"> View membership </a></li>
-                        <li><a class="dropdown-item" href="/user/update_user"> Edit profile </a></li>
+                        <li><a class="dropdown-item" href="/memberprofile"> 檢視會員資料 </a></li>
+                        <li><a class="dropdown-item" href="/user/update_user"> 修改會員資料 </a></li>
 
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/user/signout"> Log out </a></li>
+                        <li><a class="dropdown-item" href="/user/signout"> 登出 </a></li>
 
                         {% else %}
-                        <li><p class="dropdown-header pt-1 pb-1"> Guest </p></li>
+                        <li><p class="dropdown-header pt-1 pb-1"> 訪客 </p></li>
 
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item disabled" href="/memberprofile"> View membership </a></li>
-                        <li><a class="dropdown-item disabled" href="/user/update_user"> Edit profile </a></li>
+                        <li><a class="dropdown-item disabled" href="/memberprofile"> 檢視會員資料 </a></li>
+                        <li><a class="dropdown-item disabled" href="/user/update_user"> 修改會員資料 </a></li>
 
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/user/login"> Log in/Register </a></li>
+                        <li><a class="dropdown-item" href="/user/login"> 登入/註冊 </a></li>
 
                         {% endif %}
                     </ul>
@@ -106,7 +106,7 @@
                         class="fa fa-ticket mx-3"
                         href="#ticket" 
                         data-toggle="tooltip" data-placement="right" title="Ticket">
-                        <title> Ticket </title>
+                        <title> 票券 </title>
                     </a>
 
                 </div>
@@ -129,10 +129,10 @@
     
             // 在HTML中顯示JSON數據
             if (userInfo.email == ('ncumis.team17@gmail.com')){
-                document.getElementById("dropdown_user_name").innerText = "Admin: " + userInfo.name;
+                document.getElementById("dropdown_user_name").innerText = "管理員: " + userInfo.name;
             }
             else{
-            document.getElementById("dropdown_user_name").innerText = "Member: " + userInfo.name;
+            document.getElementById("dropdown_user_name").innerText = "會員: " + userInfo.name;
             }
         </script>
 

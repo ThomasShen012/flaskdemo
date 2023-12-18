@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Update Event {% endblock %}
+{% block title %} 修改活動資訊 {% endblock %}
 
 {% block content %}
 
@@ -12,19 +12,19 @@
 <div class="card-wrapper">
     <div class="card shadow mx-auto">
 
-        <h2 class="card-title text-center mt-3"> Edit Event </h2>
+        <h2 class="card-title text-center mt-3"> 修改活動資訊 </h2>
 
         <form method="POST" name="update_event_form">
 
             <!--Title-->
             <div class="form-group mt-1">
-                <label for="title"> Title </label>
+                <label for="title"> 活動標題 </label>
                 <input type="text" id="title" name="title" value="{{ event.title }}" class="field form-control" readonly>
             </div>
 
             <!--Category-->
             <div class="form-group mt-3">
-                <label for="category"> Category </label>
+                <label for="category"> 活動分類 </label>
                 <select id="category" name="category">
                     <option value="1" {% if event.category=='1' %} selected {% endif %}> 華語 </option>
                     <option value="2" {% if event.category=='2' %} selected {% endif %}> 韓國 </option>
@@ -35,13 +35,13 @@
 
             <!--Time-->
             <div class="form-group mt-3">
-                <label for="time"> Time </label>
+                <label for="time"> 活動時間 </label>
                 <input type="datetime-local" id="time" name="time" value="{{ event.time }}" class="field form-control" required>
             </div>
 
             <!--Ticket Time-->
             <div class="form-group mt-3">
-                <label for="ticket_time"> Ticket time </label>
+                <label for="ticket_time"> 開賣時間 </label>
                 <input type="datetime-local" id="ticket_time" name="ticket_time"
                     value="{{ event.ticket_time }}" class="field form-control" required>
             </div>
@@ -78,17 +78,17 @@
 
             <!--Description-->
             <div class="form-group mt-3">
-                <label for="description"> Description </label>
+                <label for="description"> 活動敘述 </label>
                 <input type="text" id="description" name="description" value="{{ event.description }}" class="field form-control" required>
             </div>
 
             <!--Notices-->
             <div class="form-group mt-3">
-                <label for="notices"> Notices </label>
+                <label for="notices"> 注意事項 </label>
                 <input type="text" id="notices" name="notices" value="{{ event.notices }}" class="field form-control" required>
             </div>
 
-            <!--File Upload--> <!-- 不知道要不要加在update_event裡面 -->
+            <!--File Upload-->
             <!--div class="form-group mt-3">
                 <input class="form-floating" type="file" id="formFileMultiple" multiple>
                 <label class="custom-file-upload" for="formFileMultiple"></label>
@@ -97,7 +97,7 @@
             <p class="error error--hidden mt-3 mb-0"></p>
 
             <div class="text-center mt-3 mb-0">
-                <button type="submit" class="btn btn-primary edit-confirm shadow"> Edit </button>
+                <button type="submit" class="btn btn-primary edit-confirm shadow"> 確認 </button>
             </div>
         </form>
 

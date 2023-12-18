@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %} Member Profile {% endblock %}
+{% block title %} 會員資訊 {% endblock %}
 
 {% block content %}
     <div class="card-wrapper">
         <div class="card shadow mx-auto">
-            <h2 class="card-title text-center mt-3"> Member Profile </h2>
+            <h2 class="card-title text-center mt-3"> 會員資訊 </h2>
 
             <p class="user-profile py-6 ms-10">
-                <strong>NAME: </strong> <span id="user-name"></span><br>
-                <strong>EMAIL: </strong> <span id="user-email"></span><br>
-                <strong>PHONE: </strong> <span id="user-phone"></span><br>
-                <strong>ADDRESS:  </strong> <span id="user-address"></span><br>
-                <strong>GENDER:  </strong> <span id="user-gender"></span><br>
-                <strong>BIRTHDAY:  </strong> <span id="user-birthday"></span><br>
+                <strong>名稱: </strong> <span id="user-name"></span><br>
+                <strong>電子郵件: </strong> <span id="user-email"></span><br>
+                <strong>電話: </strong> <span id="user-phone"></span><br>
+                <strong>地址:  </strong> <span id="user-address"></span><br>
+                <strong>性別:  </strong> <span id="user-gender"></span><br>
+                <strong>生日:  </strong> <span id="user-birthday"></span><br>
             </p>
 
             <!-- buttons -->
             <div class="text-center">
-                <a class="btn btn-success shadow-lg" href="/user/update_user" role="button"> Edit Profile </a>
-                <a class="btn btn-success shadow-lg" href="/cam" role="button"> Take Photo </a>
+                <a class="btn btn-success shadow-lg" href="/user/update_user" role="button"> 編輯資料 </a>
+                <a class="btn btn-success shadow-lg" href="/cam" role="button"> 註冊人像 </a>
                 {% if user_email == 'ncumis.team17@gmail.com' %}
-                <a class="btn btn-danger shadow-lg" href="/admin" role="button"> Admin mode </a>
+                <a class="btn btn-danger shadow-lg" href="/admin" role="button"> 管理者模式 </a>
                 <!--a hidden class="btn btn-danger shadow-lg" href="/admin" role="button"> Admin mode </a-->
                 {% endif %}
                 <!--a class="btn btn-danger shadow-lg" href="/admin" role="button"> test admin </a-->

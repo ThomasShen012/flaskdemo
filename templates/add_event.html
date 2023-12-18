@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Add event {% endblock %}
+{% block title %} 新增活動 {% endblock %}
 
 {% block content %}
 
@@ -10,14 +10,14 @@
 </div>
 
 <div class="card shadow mx-auto">
-    <h2 class="card-title text-center mt-3"> Add New Event </h2>
+    <h2 class="card-title text-center mt-3"> 新增活動 </h2>
 
     <form method="POST" name="add_event_form" enctype="multipart/form-data">
 
         <!--Title-->
         <div class="form-floating form-group mt-1">
             <input type="text" class="form-control" id="title" name="title" placeholder="example_title" required>
-            <label for="title"> Title </label>
+            <label for="title"> 活動標題 </label>
         </div>
 
         <!--Category-->
@@ -28,19 +28,19 @@
                 <option value="3"> 日本 </option>
                 <option value="4"> 西洋 </option>
             </select>
-            <label for="gender"> Select your Category </label>
+            <label for="gender"> 活動分類 </label>
         </div>
 
         <!--Time-->
         <div class="form-floating form-group mt-3">
             <input type="datetime-local" class="form-control" id="time" name="time" placeholder="YYYY-MM-DD HH:MM:SS" required>
-            <label for="time"> Time </label>
+            <label for="time"> 活動時間 </label>
         </div>
 
         <!--Ticket Time-->
         <div class="form-floating form-group mt-3">
             <input type="datetime-local" class="form-control" id="ticket_time" name="ticket_time" placeholder="YYYY-MM-DD HH:MM:SS" required>
-            <label for="ticket_time"> Ticket time </label>
+            <label for="ticket_time"> 開賣時間 </label>
         </div>
 
         <!--Ticket-->
@@ -69,13 +69,13 @@
         <!--Description-->
         <div class="form-floating form-group mt-3">
             <input type="text" class="form-control" id="description" name="description" placeholder="description" required>
-            <label for="description"> Description </label>
+            <label for="description"> 活動敘述 </label>
         </div>
 
         <!--Notices-->
         <div class="form-floating form-group mt-3">
             <input type="text" class="form-control" id="notices" name="notices" placeholder="notices" required>
-            <label for="notices"> Notices </label>
+            <label for="notices"> 注意事項 </label>
         </div>
 
         <!--File Upload-->
@@ -87,8 +87,8 @@
         <p class="error error--hidden mt-3 mb-0"></p>
 
         <div class="text-center mt-3 mb-0">
-            <button type="submit" class="btn btn-primary add-event-confirm shadow"> Create </button>
-            <button type="reset" class="btn btn-secondary add-event-confirm shadow"> Clear </button>
+            <button type="submit" class="btn btn-primary add-event-confirm shadow"> 新增 </button>
+            <button type="reset" class="btn btn-secondary add-event-confirm shadow"> 清除 </button>
         </div>
 
     </form>

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %} Audience {% endblock %}
+{% block title %} 觀眾 {% endblock %}
 
 {% block content %}
 
 <br>
 <div class="text-center">
-    <a class="btn btn-secondary shadow-lg" href="/get_event/{{ audience["event_id"] }}" role="button"> back </a>
+    <a class="btn btn-secondary shadow-lg" href="/get_event/{{ audience["event_id"] }}" role="button"> 回到上一頁 </a>
 </div>
 
 {% if audience %}
@@ -14,8 +14,8 @@
     <!--br>{{ audience_member }}<br><br-->
     <div class="card-wrapper row justify-content-center">
     {% for i in range(audience.tickets | length) %}
-    <div class="card shadow col-2 ms-3 me-3" style="width:475px">
-        <h2 class="card-title text-center"> {{ audience.title }}: {{ audience.tickets[i].name }} </h2>
+    <div class="card shadow col-3 ms-3 me-3" style="width:475px">
+        <h2 class="card-title text-center mt-1 mb-1"> {{ audience.title }}: {{ audience.tickets[i].name }} </h2>
 
         <div class="fixTableHead audience-list" style="height:275px">
             <table class="table table-hover audience-table" style="height:400px">
