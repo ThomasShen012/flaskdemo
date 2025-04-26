@@ -6,5 +6,5 @@
 <br>
 <p>註冊時可同時註冊臉 -> 購票時須通過人像辨識 -> 進場時可省去實體票券直接刷臉入場</p>
 
-
+<br><br><br>
 for the OFFICIAL VERSION
